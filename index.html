@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mystic Tarot Master</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MysticTarot">
+<link rel="apple-touch-icon" href="icon-192.png">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="mystic-bg">
+        <div class="stars"></div>
+        <div class="nebula"></div>
+    </div>
+
+    <div id="category-screen" class="screen">
+        <header>
+            <h1>어떤 운세가 궁금하신가요?</h1>
+            <p class="subtitle">오늘 당신의 길잡이가 되어드릴 주제를 선택하세요.</p>
+        </header>
+        <div class="category-grid">
+            <button class="cat-btn" onclick="selectCategory('종합운', '당신의 오늘 하루가 평온하길 기원합니다.')">🔮 종합운</button>
+            <button class="cat-btn" onclick="selectCategory('연애운', '사랑의 설렘과 인연의 기운을 살핍니다.')">❤️ 연애운</button>
+            <button class="cat-btn" onclick="selectCategory('금전운', '풍요와 번영의 흐름을 확인합니다.')">💰 금전운</button>
+            <button class="cat-btn" onclick="selectCategory('학업/사업운', '성취와 목표 달성의 에너지를 집중합니다.')">🎓 학업/사업운</button>
+        </div>
+    </div>
+
+    <div id="meditation-screen" class="screen hidden">
+        <div class="meditation-content">
+            <div class="breathing-circle"></div>
+            <h2 id="meditation-text">마음을 정돈하세요.</h2>
+            <p id="selected-cat-desc" class="subtitle"></p>
+        </div>
+    </div>
+
+    <div id="main-app" class="app-wrapper hidden">
+        <header>
+            <div class="main-title">
+                <h1 id="dynamic-title">오늘의 타로 메시지</h1>
+            </div>
+            <p class="subtitle">신중하게 카드를 터치하여 운명을 확인하세요.</p>
+        </header>
+
+        <main class="scene">
+            <div class="card" id="tarot-card" onclick="handleCardClick()">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="mystic-circle"></div>
+                    </div>
+                    <div class="card-back" id="capture-area">
+                        <div id="card-image-placeholder"></div>
+                        <div class="card-info-area">
+                            <h2 id="card-name">CARD NAME</h2>
+                            <div id="direction-badge">
+                                <span id="card-direction">READY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="result-overlay" class="hidden">
+        <div class="result-box">
+            <h3 id="result-title">마스터의 조언</h3>
+            <div id="card-meaning-scroll">
+                <p id="card-meaning"></p>
+            </div>
+            <button class="save-btn" onclick="saveAsImage()">📸 결과 이미지 저장</button>
+            <button class="retry-btn" onclick="closeOverlay()">카드 감상하기</button>
+            <button class="reset-btn" onclick="startAgain()">다시 시작하기</button>
+        </div>
+    </div>
+
+    <script src="majorCards.js"></script>
+    <script src="cupCards.js"></script>
+    <script src="swordCards.js"></script>
+    <script src="wandCards.js"></script>
+    <script src="pentacleCards.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

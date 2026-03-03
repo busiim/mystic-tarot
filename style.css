@@ -1,0 +1,149 @@
+:root {
+    --bg-color: #05050a;
+    --card-back-color: #121220;
+    --gold-color: #d4af37;
+    --gold-gradient: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 10%, #d4af37 50%, #b8860b 100%);
+    --text-color: #f0f0f0;
+    --title-font: 'Gowun Batang', serif;
+    --body-font: 'Nanum Myeongjo', serif;
+    --fancy-font: 'Cinzel', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body { 
+    font-family: var(--body-font); 
+    background-color: var(--bg-color); 
+    color: var(--text-color); 
+    height: 100vh; width: 100vw;
+    overflow: hidden;
+    display: flex; justify-content: center; align-items: center;
+    position: relative; isolation: isolate;
+}
+
+/* 배경 설정 */
+.mystic-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; background: radial-gradient(circle at 50% 50%, #1a1a3a 0%, #05050a 100%);
+    transform: translateZ(-1px);
+}
+.stars {
+    position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+    background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1px 1px at 80px 120px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat; background-size: 300px 300px; opacity: 0.2;
+    animation: starsMoving 150s linear infinite;
+}
+
+/* 화면 레이아웃 */
+.screen {
+    width: 100%; max-width: 480px; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 40px 20px; z-index: 10;
+}
+
+.category-grid {
+    width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px;
+}
+.cat-btn {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--text-color); padding: 25px 10px; border-radius: 15px;
+    font-family: var(--title-font); font-size: 1rem; cursor: pointer; transition: 0.3s;
+}
+.cat-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold-color); }
+
+/* 명상 화면 */
+.meditation-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.breathing-circle {
+    width: 100px; height: 100px; border: 2px solid var(--gold-color);
+    border-radius: 50%; margin-bottom: 60px;
+    animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.6); opacity: 0.8; box-shadow: 0 0 40px rgba(212, 175, 55, 0.5); }
+}
+
+#meditation-text { margin-top: 20px; font-family: var(--title-font); font-size: 1.5rem; letter-spacing: 2px; }
+#selected-cat-desc { margin-top: 15px; opacity: 0.6; font-size: 0.9rem; }
+
+/* 메인 앱 */
+.app-wrapper {
+    width: 100%; max-width: 480px; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 20px; position: relative; z-index: 10;
+}
+header { width: 100%; padding-bottom: 30px; text-align: center; }
+header h1 { 
+    font-family: var(--title-font); font-size: 1.7rem; font-weight: 700;
+    background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* 카드 구역 */
+.scene { width: 100%; display: flex; justify-content: center; align-items: center; perspective: 1500px; z-index: 20; }
+.card { width: 250px; height: 430px; cursor: pointer; }
+.card-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d;
+    border-radius: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+}
+.card.is-flipped .card-inner { transform: rotateY(180deg); }
+.card-front, .card-back {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.3); overflow: hidden;
+}
+.card-front { background-color: var(--card-back-color); display: flex; align-items: center; justify-content: center; }
+
+.card-back { background-color: #fdfdfd; transform: rotateY(180deg); display: flex; flex-direction: column; padding: 20px; align-items: center; justify-content: center; }
+#card-image-placeholder { width: 100%; height: 70%; border-radius: 5px; overflow: hidden; margin-bottom: 20px; }
+#card-image-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+#card-name { font-family: var(--fancy-font); font-size: 1.2rem; color: #111; font-weight: 700; margin-bottom: 10px; text-align: center; }
+
+/* 4. [수정] 초록색 상자(배지) 자체의 위치 교정 */
+#direction-badge { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 30px;
+    border-radius: 4px;
+    /* 불필요한 margin이나 float를 제거하여 부모의 flex 설정에 따르게 함 */
+    margin: 0 auto;           /* 브라우저가 좌우 여백을 동일하게 배분 */
+    padding: 0;
+}
+
+/* 5. 배지 내부 글자 */
+#card-direction { 
+    font-family: var(--fancy-font);
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-left: 2px;        /* 지난번 교정한 자간 밸런스 유지 */
+    text-align: center;
+    line-height: 1;
+}
+
+#direction-badge.reg-bg { background-color: #1b5e20; color: #ffffff; }
+#direction-badge.rev-bg { background-color: #b71c1c; color: #ffffff; }
+
+/* 결과 모달 */
+#result-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center;
+    z-index: 1000; opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+}
+#result-overlay.show { opacity: 1; pointer-events: auto; }
+.result-box {
+    background: #101020; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 25px;
+    padding: 35px 25px 25px; width: 90%; max-width: 360px; text-align: center;
+}
+.result-box h3 { font-family: var(--title-font); color: #fff; margin-bottom: 20px; font-size: 1.4rem; }
+#card-meaning-scroll { max-height: 220px; overflow-y: auto; text-align: left; padding: 0 10px; margin-bottom: 25px; }
+#card-meaning { font-size: 0.9rem; line-height: 1.8; color: #eee; word-break: keep-all; }
+
+.retry-btn, .save-btn, .reset-btn { width: 100%; padding: 12px; border-radius: 30px; font-weight: bold; font-family: var(--title-font); cursor: pointer; margin-bottom: 10px; border: none; }
+.save-btn { background: #fff; color: #111; }
+.retry-btn { background: var(--gold-gradient); color: #000; }
+.reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #777; font-size: 0.8rem; }
+
+.hidden { display: none !important; }
