@@ -93,9 +93,37 @@ header h1 {
 }
 .card-front { background-color: var(--card-back-color); display: flex; align-items: center; justify-content: center; }
 
-.card-back { background-color: #fdfdfd; transform: rotateY(180deg); display: flex; flex-direction: column; padding: 20px; align-items: center; justify-content: center; }
-#card-image-placeholder { width: 100%; height: 70%; border-radius: 5px; overflow: hidden; margin-bottom: 20px; }
-#card-image-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+.card-back { background-color: #fdfdfd; transform: rotateY(180deg); display: flex; flex-direction: column; padding: 20px; align-items: center; justify-content: flex-start; }
+
+#card-image-placeholder {
+    flex: 1;       /* 카드 정보 영역을 제외한 나머지 높이를 모두 차지 */
+    min-height: 0; /* flex 자식이 shrink되도록 허용 */
+    width: 90%;
+    max-width: 350px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* 실제 이미지 스타일 */
+#card-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    /* 잘리지 않게 영역 안에 꽉 채우기 */
+    object-fit: contain; 
+    display: block;
+}
+
+/* 역방향 이미지 회전 */
+.reversed img {
+    transform: rotate(180deg);
+}
+
 #card-name { font-family: var(--fancy-font); font-size: 1.2rem; color: #111; font-weight: 700; margin-bottom: 10px; text-align: center; }
 
 /* 4. [수정] 초록색 상자(배지) 자체의 위치 교정 */

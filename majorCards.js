@@ -1,7 +1,7 @@
 const majorCards = [
     {
         name: "The Fool",
-        img: "images/major00.png",
+        img: "images/major00.jpg",
         meanings: {
             종합: "새로운 시작과 자유로운 여정을 뜻합니다. 마음이 가는 대로 움직이세요.",
             연애: "풋풋한 설렘이 시작됩니다. 계산하지 않는 순수한 사랑이 찾아올 거예요.",
@@ -17,7 +17,7 @@ const majorCards = [
     },
     {
         name: "The Magician",
-        img: "images/major01.png",
+        img: "images/major01.jpg",
         meanings: {
             종합: "당신의 재능을 펼칠 기회가 왔습니다. 무엇이든 시작할 준비가 되었습니다.",
             연애: "당신은 매력적입니다. 자신감 있는 태도가 상대방을 사로잡을 것입니다.",
@@ -33,7 +33,7 @@ const majorCards = [
     },
     {
         name: "The High Priestess",
-        img: "images/major02.png",
+        img: "images/major02.jpg",
         meanings: {
             종합: "내면의 목소리에 귀를 기울이세요. 직관이 당신의 가장 좋은 가이드입니다.",
             연애: "정신적인 교감이 중요한 시기입니다. 지금은 조용히 지켜보는 것이 좋습니다.",
@@ -49,7 +49,7 @@ const majorCards = [
     },
     {
         name: "The Empress",
-        img: "images/major03.png",
+        img: "images/major03.jpg",
         meanings: {
             종합: "풍요와 결실의 시기입니다. 당신의 노력이 드디어 보상을 받게 됩니다.",
             연애: "따뜻하고 헌신적인 사랑입니다. 관계가 안정되고 풍성해지는 시기입니다.",
@@ -65,7 +65,7 @@ const majorCards = [
     },
     {
         name: "The Emperor",
-        img: "images/major04.png",
+        img: "images/major04.jpg",
         meanings: {
             종합: "강력한 리더십이 생깁니다. 계획대로 밀고 나간다면 반드시 성공합니다.",
             연애: "책임감 있고 듬직한 사랑을 하게 됩니다. 주도적인 연애를 할 시기입니다.",
@@ -81,7 +81,7 @@ const majorCards = [
     },
     {
         name: "The Hierophant",
-        img: "images/major05.png",
+        img: "images/major05.jpg",
         meanings: {
             종합: "멘토의 조언을 구하세요. 전통적인 방식과 신뢰 관계가 중요합니다.",
             연애: "안정적이고 도덕적인 인연을 맺습니다. 정신적 지지가 큰 힘이 됩니다.",
@@ -97,7 +97,7 @@ const majorCards = [
     },
     {
         name: "The Lovers",
-        img: "images/major06.png",
+        img: "images/major06.jpg",
         meanings: {
             종합: "중요한 선택의 순간입니다. 당신의 마음이 이끄는 결정을 내리세요.",
             연애: "강렬한 사랑의 결합입니다. 서로에게 깊이 빠져드는 행복한 시기입니다.",
@@ -113,7 +113,7 @@ const majorCards = [
     },
     {
         name: "The Chariot",
-        img: "images/major07.png",
+        img: "images/major07.jpg",
         meanings: {
             종합: "승리를 향한 거침없는 전진입니다. 강력한 추진력이 승리를 가져옵니다.",
             연애: "자신감 있게 대시하세요. 당신의 적극적인 태도가 사랑을 쟁취합니다.",
@@ -129,7 +129,7 @@ const majorCards = [
     },
     {
         name: "Strength",
-        img: "images/major08.png",
+        img: "images/major08.jpg",
         meanings: {
             종합: "부드러운 카리스마가 힘을 발휘합니다. 인내와 포용력이 승리의 열쇠입니다.",
             연애: "상대를 다독이는 깊은 사랑입니다. 인내심이 신뢰를 더욱 두텁게 합니다.",
@@ -145,7 +145,7 @@ const majorCards = [
     },
     {
         name: "The Hermit",
-        img: "images/major09.png",
+        img: "images/major09.jpg",
         meanings: {
             종합: "내면 성찰이 필요한 시기입니다. 혼자만의 시간 속에서 답을 찾게 됩니다.",
             연애: "신중한 접근이 필요한 때입니다. 진지하게 관계의 미래를 생각하세요.",
@@ -161,7 +161,7 @@ const majorCards = [
     },
     {
         name: "Wheel of Fortune",
-        img: "images/major10.png",
+        img: "images/major10.jpg",
         meanings: {
             종합: "거스를 수 없는 변화의 흐름이 옵니다. 행운의 기회를 놓치지 마세요.",
             연애: "운명적인 만남이 예상됩니다. 관계가 급격히 진전되는 기분 좋은 시기입니다.",
@@ -177,7 +177,7 @@ const majorCards = [
     },
     {
         name: "Justice",
-        img: "images/major11.png",
+        img: "images/major11.jpg",
         meanings: {
             종합: "공정하고 냉철한 판단이 필요합니다. 뿌린 대로 거두는 시기입니다.",
             연애: "서로에 대한 균형과 예의가 중요합니다. 합리적인 대화로 문제를 푸세요.",
@@ -193,7 +193,7 @@ const majorCards = [
     },
     {
         name: "The Hanged Man",
-        img: "images/major12.png",
+        img: "images/major12.jpg",
         meanings: {
             종합: "새로운 관점이 필요합니다. 지금의 인내가 훗날 큰 보답으로 돌아옵니다.",
             연애: "헌신적인 태도가 관계를 지킵니다. 지금은 조금 더 기다려줄 때입니다.",
@@ -209,7 +209,7 @@ const majorCards = [
     },
     {
         name: "Death",
-        img: "images/major13.png",
+        img: "images/major13.jpg",
         meanings: {
             종합: "과거가 끝나고 새로운 장이 열립니다. 변화를 겸허히 받아들이세요.",
             연애: "이별이나 큰 관계의 변화를 뜻하지만, 이는 새로운 인연을 위한 시작입니다.",
@@ -225,7 +225,7 @@ const majorCards = [
     },
     {
         name: "Temperance",
-        img: "images/major14.png",
+        img: "images/major14.jpg",
         meanings: {
             종합: "조화와 절제가 성공의 열쇠입니다. 극단을 피해 중도를 유지하세요.",
             연애: "안정적이고 평온한 소통이 이어집니다. 서로 맞춰가는 과정이 즐겁습니다.",
@@ -241,7 +241,7 @@ const majorCards = [
     },
     {
         name: "The Devil",
-        img: "images/major15.png",
+        img: "images/major15.jpg",
         meanings: {
             종합: "강한 유혹이나 집착에 주의하세요. 속박에서 벗어날 용기가 필요합니다.",
             연애: "치명적인 매력이지만 위험합니다. 집착이나 중독적인 사랑을 조심하세요.",
@@ -257,7 +257,7 @@ const majorCards = [
     },
     {
         name: "The Tower",
-        img: "images/major16.png",
+        img: "images/major16.jpg",
         meanings: {
             종합: "갑작스러운 변화가 닥칠 수 있습니다. 이는 더 나은 구축을 위한 파괴입니다.",
             연애: "숨겨온 갈등이 폭발할 수 있습니다. 진실을 마주해야 관계가 새로워집니다.",
@@ -273,7 +273,7 @@ const majorCards = [
     },
     {
         name: "The Star",
-        img: "images/major17.png",
+        img: "images/major17.jpg",
         meanings: {
             종합: "희망과 영감이 가득한 시기입니다. 당신의 꿈이 실현될 가능성이 큽니다.",
             연애: "이상적인 상대를 만나거나 관계에 축복이 따르는 로맨틱한 날입니다.",
@@ -289,7 +289,7 @@ const majorCards = [
     },
     {
         name: "The Moon",
-        img: "images/major18.png",
+        img: "images/major18.jpg",
         meanings: {
             종합: "혼란스럽고 불안한 시기입니다. 겉모습에 속지 말고 진실을 보세요.",
             연애: "서로에 대한 비밀이나 의심이 생길 수 있습니다. 직관을 따르세요.",
@@ -305,7 +305,7 @@ const majorCards = [
     },
     {
         name: "The Sun",
-        img: "images/major19.png",
+        img: "images/major19.jpg",
         meanings: {
             종합: "최고의 행운과 성공이 함께합니다. 당신의 앞날은 매우 밝습니다.",
             연애: "모두에게 축복받는 연애입니다. 순수한 에너지가 관계를 채워줍니다.",
@@ -321,7 +321,7 @@ const majorCards = [
     },
     {
         name: "Judgement",
-        img: "images/major20.png",
+        img: "images/major20.jpg",
         meanings: {
             종합: "결정적인 소식이 들려옵니다. 새로운 기회를 잡고 화려하게 부활하세요.",
             연애: "재회 운이 강하거나 중요한 결단을 내릴 때입니다. 진실한 대화가 답입니다.",
@@ -337,7 +337,7 @@ const majorCards = [
     },
     {
         name: "The World",
-        img: "images/major21.png",
+        img: "images/major21.jpg",
         meanings: {
             종합: "완성과 통합의 단계입니다. 당신의 목표가 완벽하게 이루어집니다.",
             연애: "행복의 정점에 도달합니다. 결혼이나 결실을 보기에 최고의 시기입니다.",

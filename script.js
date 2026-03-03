@@ -194,7 +194,7 @@ function updateUI(result) {
     const dirText = document.getElementById('card-direction');
 
     // 데이터 바인딩
-    imagePlaceholder.innerHTML = `<img src="${result.img}" alt="Tarot Card" crossorigin="anonymous">`;
+    imagePlaceholder.innerHTML = `<img src="${result.img}" alt="Tarot Card">`;
     document.getElementById('card-name').innerText = result.name;
     document.getElementById('card-meaning').innerText = result.meaning;
     document.getElementById('result-title').innerText = `${currentCategory}에 대한 조언`;
@@ -233,11 +233,12 @@ function saveAsImage() {
 
     html2canvas(captureArea, {
         useCORS: true,
+        allowTaint: true,
         backgroundColor: "#fdfdfd",
         scale: 2
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `Tarot-${currentCategory}-${new Date().getTime()}.png`;
+        link.download = `Tarot-${currentCategory}-${new Date().getTime()}.jpg`;
         link.href = canvas.toDataURL('image/png');
         link.click();
         saveBtn.innerText = originalText;
