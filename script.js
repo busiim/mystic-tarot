@@ -4,7 +4,12 @@
  */
 
 let isFlipped = false;
-let currentCategory = "";
+
+// 카테고리 버튼 클릭 시 실행되는 함수 예시
+function setCategory(category) {
+    currentCategory = category;
+    // 이후 카드 뽑기 화면으로 이동하는 로직...
+}
 // 모든 카드 데이터 통합 (별도의 데이터 파일들이 선행 로드되어 있어야 함)
 const allCards = [...majorCards, ...cupCards, ...swordCards, ...wandCards, ...pentacleCards];
 
@@ -147,25 +152,35 @@ function handleCardClick() {
 let lastCardIndex = -1;// 마지막으로 뽑은 카드의 번호를 기억
 
 function drawNewCard() {
-    let randomIndex;
-    
-    // 이전에 뽑은 카드와 다른 번호가 나올 때까지 반복 (단, 카드가 2장 이상일 때만)
-    do {
-        randomIndex = Math.floor(Math.random() * allCards.length);
-    } while (randomIndex === lastCardIndex && allCards.length > 1);
+    // 1. 모든 카드(메이저+마이너)를 합친 배열 만들기 (현재는 메이저만 있다면 majorCards만 사용)
+    // 만약 minorCards도 있다면 [...majorCards, ...minorCards] 로 합칩니다.
+    const allCards = [...majorCards]; 
 
-    lastCardIndex = randomIndex; // 현재 뽑은 번호를 저장
-    
+    // 2. 랜덤하게 카드 한 장 뽑기
+    const randomIndex = Math.floor(Math.random() * allCards.length);
     const selectedCard = allCards[randomIndex];
+
+    // 3. 정방향/역방향 랜덤 결정 (50% 확률)
     const isReverse = Math.random() > 0.5;
 
+    // 4. [핵심] 현재 선택된 카테고리에 맞는 해석 가져오기
+    // 사용자가 메인에서 클릭한 '연애운', '금전운' 등의 값이 currentCategory에 저장되어 있어야 합니다.
+    const categoryKey = currentCategory || "종합"; 
+    
+    // 정방향이면 meanings에서, 역방향이면 meanings_rev에서 해당 카테고리 해석을 가져옴
+    const meaningText = isReverse 
+        ? (selectedCard.meanings_rev[categoryKey] || selectedCard.meanings_rev["종합"])
+        : (selectedCard.meanings[categoryKey] || selectedCard.meanings["종합"]);
+
+    // 5. 결과 객체 생성
     const result = {
         name: selectedCard.name,
         img: selectedCard.img,
-        meaning: isReverse ? selectedCard.meaning_rev : selectedCard.meaning_reg,
+        meaning: meaningText,
         isReverse: isReverse
     };
 
+    // 6. UI 업데이트 함수 호출 (화면에 카드와 글자를 띄워주는 함수)
     updateUI(result);
 }
 
