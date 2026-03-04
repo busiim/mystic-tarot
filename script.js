@@ -27,11 +27,8 @@ const strings = {
         cardSubtitle: '신중하게 카드를 터치하여 운명을 확인하세요.',
         resultTitle: '마스터의 조언',
         adviceSuffix: '에 대한 조언',
-        saveBtn: '📸 결과 이미지 저장',
         retryBtn: '카드 감상하기',
         resetBtn: '다시 시작하기',
-        generating: '⏳ 생성 중...',
-        saveFail: '❌ 다시 시도',
     },
     en: {
         mainTitle: 'What would you like to know?',
@@ -46,11 +43,8 @@ const strings = {
         cardSubtitle: 'Touch the card carefully to reveal your fate.',
         resultTitle: "The Master's Advice",
         adviceSuffix: ' Reading',
-        saveBtn: '📸 Save Result Image',
         retryBtn: 'View Card',
         resetBtn: 'Start Again',
-        generating: '⏳ Generating...',
-        saveFail: '❌ Try Again',
     }
 };
 
@@ -81,7 +75,6 @@ function applyStrings() {
     });
 
     // 결과 오버레이 버튼 텍스트 갱신
-    document.querySelector('.save-btn').innerText = s.saveBtn;
     document.querySelector('.retry-btn').innerText = s.retryBtn;
     document.querySelector('.reset-btn').innerText = s.resetBtn;
 
@@ -104,6 +97,9 @@ function applyStrings() {
 // ─── 오디오 엔진 ─────────────────────────────────────────────────────────────
 const TarotAudio = {
     ctx: null,
+    ambientOscs: null,
+    ambientLfo:  null,
+    ambientGain: null,
 
     init() {
         if (!this.ctx) {
@@ -111,55 +107,124 @@ const TarotAudio = {
         }
     },
 
+    // ── 배경 음악: A 단조 앰비언트 드론 ────────────────────────────────────────
+    playAmbient() {
+        this.init();
+        if (this.ambientGain) return; // 이미 재생 중
+
+        const master = this.ctx.createGain();
+        master.gain.setValueAtTime(0.001, this.ctx.currentTime);
+        master.gain.linearRampToValueAtTime(0.045, this.ctx.currentTime + 5);
+        master.connect(this.ctx.destination);
+
+        // A 단조 배음 구조: A2 E3 A3 C4 E4
+        this.ambientOscs = [110, 164.8, 220, 261.6, 329.6].map((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const g   = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            osc.detune.value = (i % 2 === 0 ? 1 : -1) * (i + 1) * 1.5; // 미세 디튜닝
+            g.gain.value = 0.22 / 5;
+            osc.connect(g);
+            g.connect(master);
+            osc.start();
+            return osc;
+        });
+
+        // 느린 LFO — 볼륨 미세 물결 효과
+        this.ambientLfo = this.ctx.createOscillator();
+        const lfoGain   = this.ctx.createGain();
+        this.ambientLfo.frequency.value = 0.07;
+        lfoGain.gain.value = 0.007;
+        this.ambientLfo.connect(lfoGain);
+        lfoGain.connect(master.gain);
+        this.ambientLfo.start();
+
+        this.ambientGain = master;
+    },
+
+    stopAmbient() {
+        if (!this.ambientGain) return;
+        const g = this.ambientGain;
+        g.gain.cancelScheduledValues(this.ctx.currentTime);
+        g.gain.setValueAtTime(g.gain.value, this.ctx.currentTime);
+        g.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 2.5);
+        setTimeout(() => {
+            if (this.ambientOscs) this.ambientOscs.forEach(o => { try { o.stop(); } catch(e) {} });
+            if (this.ambientLfo)  { try { this.ambientLfo.stop(); } catch(e) {} }
+            this.ambientOscs = null;
+            this.ambientLfo  = null;
+            this.ambientGain = null;
+        }, 3000);
+    },
+
+    // ── 카테고리 선택: 신비로운 상승 차임 ─────────────────────────────────────
     playSelect() {
         this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(440, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1.2);
-        gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1.2);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 1.2);
+        [440, 523.3, 659.3, 880].forEach((freq, i) => {
+            const t    = this.ctx.currentTime + i * 0.13;
+            const osc  = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.12, t + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 1.4);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + 1.4);
+        });
     },
 
+    // ── 카드 뒤집기: 카드 넘기는 소리 + 피치 스윕 ────────────────────────────
     playFlip() {
         this.init();
-        const bufferSize = this.ctx.sampleRate * 0.3;
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
-        const source = this.ctx.createBufferSource();
+
+        // 화이트 노이즈 (종이 소리)
+        const bufferSize = this.ctx.sampleRate * 0.35;
+        const buffer     = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data       = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+        const source  = this.ctx.createBufferSource();
         source.buffer = buffer;
-        const lowpass = this.ctx.createBiquadFilter();
-        lowpass.type = 'lowpass';
-        lowpass.frequency.setValueAtTime(1200, this.ctx.currentTime);
-        lowpass.frequency.exponentialRampToValueAtTime(10, this.ctx.currentTime + 0.3);
-        const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
-        source.connect(lowpass);
-        lowpass.connect(gain);
-        gain.connect(this.ctx.destination);
+        const lp = this.ctx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.setValueAtTime(2500, this.ctx.currentTime);
+        lp.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.35);
+        const ng = this.ctx.createGain();
+        ng.gain.setValueAtTime(0.22, this.ctx.currentTime);
+        ng.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+        source.connect(lp); lp.connect(ng); ng.connect(this.ctx.destination);
         source.start();
+
+        // 신비로운 하강 스윕
+        const osc     = this.ctx.createOscillator();
+        const oscGain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(900, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(220, this.ctx.currentTime + 0.45);
+        oscGain.gain.setValueAtTime(0.07, this.ctx.currentTime);
+        oscGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.45);
+        osc.connect(oscGain); oscGain.connect(this.ctx.destination);
+        osc.start(); osc.stop(this.ctx.currentTime + 0.45);
     },
 
+    // ── 결과 공개: C 장조 상승 아르페지오 ─────────────────────────────────────
     playResult() {
         this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(880, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(440, this.ctx.currentTime + 1.5);
-        gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1.5);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 1.5);
+        [261.6, 329.6, 392, 523.3].forEach((freq, i) => {
+            const t    = this.ctx.currentTime + i * 0.14;
+            const osc  = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.08, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 1.6);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            osc.start(t); osc.stop(t + 1.6);
+        });
     }
 };
 
@@ -191,6 +256,7 @@ function selectCategory(index) {
     currentCategoryTitle = cat.title;
 
     TarotAudio.playSelect();
+    TarotAudio.playAmbient();
     triggerHaptic('medium');
 
     document.getElementById('category-screen').classList.add('hidden');
@@ -258,30 +324,6 @@ function updateUI(result) {
     }, 1000);
 }
 
-// ─── 이미지 저장 ──────────────────────────────────────────────────────────────
-function saveAsImage() {
-    const captureArea = document.getElementById('capture-area');
-    const saveBtn = document.querySelector('.save-btn');
-    const s = strings[currentLang];
-    const originalText = saveBtn.innerText;
-    saveBtn.innerText = s.generating;
-
-    html2canvas(captureArea, {
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#fdfdfd",
-        scale: 2
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `Tarot-${currentCategoryTitle}-${new Date().getTime()}.jpg`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        saveBtn.innerText = originalText;
-    }).catch(err => {
-        console.error("저장 실패:", err);
-        saveBtn.innerText = s.saveFail;
-    });
-}
 
 function showOverlay() {
     const overlay = document.getElementById('result-overlay');
@@ -304,6 +346,8 @@ function startAgain() {
     currentCategoryIndex = -1;
     currentCard          = null;
     currentIsReverse     = false;
+
+    TarotAudio.stopAmbient();
 
     const overlay = document.getElementById('result-overlay');
     overlay.classList.remove('show');

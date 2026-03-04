@@ -164,8 +164,7 @@ header h1 {
 #card-meaning-scroll { max-height: 220px; overflow-y: auto; text-align: left; padding: 0 10px; margin-bottom: 25px; }
 #card-meaning { font-size: 0.9rem; line-height: 1.8; color: #eee; word-break: keep-all; }
 
-.retry-btn, .save-btn, .reset-btn { width: 100%; padding: 12px; border-radius: 30px; font-weight: bold; font-family: var(--title-font); cursor: pointer; margin-bottom: 10px; border: none; }
-.save-btn { background: #fff; color: #111; }
+.retry-btn, .reset-btn { width: 100%; padding: 12px; border-radius: 30px; font-weight: bold; font-family: var(--title-font); cursor: pointer; margin-bottom: 10px; border: none; }
 .retry-btn { background: var(--gold-gradient); color: #000; }
 .reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #777; font-size: 0.8rem; }
 
