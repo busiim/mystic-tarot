@@ -13,6 +13,18 @@ const swordCards = [
             연애: "말실수로 상처를 주거나 오해가 생길 수 있습니다. 감정적인 언행을 자제하세요.",
             금전: "불리한 계약에 서명할 위험이 있습니다. 서류의 세부 조항을 꼼꼼히 확인하세요.",
             학업: "생각이 꼬여 공부 효율이 떨어집니다. 기초부터 차근차근 다시 정리해야 합니다."
+        },
+        meanings_en: {
+            General: "Clear judgment and a decisive new beginning are called for. A chance at victory has arrived.",
+            Love: "Rational thinking helps you find a breakthrough in the relationship. Honest conversation is now essential.",
+            Money: "An excellent time to make a firm investment decision or sign a contract. Clear thinking brings gains.",
+            Career: "Your concentration is at its absolute peak. Expect a sharp rise in performance and grades."
+        },
+        meanings_rev_en: {
+            General: "Clouded judgment may lead to confusion. Rash decisions invite trouble.",
+            Love: "A slip of the tongue or misunderstanding may cause hurt. Restrain emotional outbursts.",
+            Money: "You risk signing an unfavorable contract. Scrutinize every clause in every document.",
+            Career: "Tangled thinking is reducing study efficiency. Return to the basics and rebuild step by step."
         }
     },
     {
@@ -29,6 +41,18 @@ const swordCards = [
             연애: "숨겨왔던 갈등이 폭발할 수 있습니다. 회피하지 말고 진실을 마주해야 합니다.",
             금전: "금전적 균형이 깨지고 손실이 발생할 수 있습니다. 빠르게 대책을 세우세요.",
             학업: "결정 장애로 공부 시간을 허비합니다. 한 가지라도 제대로 시작하는 것이 중요합니다."
+        },
+        meanings_en: {
+            General: "You stand at a tense crossroads between two choices. Find your balance and look inward for answers.",
+            Love: "You cannot make up your mind and feel conflicted. Postponing a decision may be the wisest approach right now.",
+            Money: "You are maintaining a delicate balance between income and expenses. Careful management is essential.",
+            Career: "You are torn between two subjects or paths. Set priorities and divide your time wisely."
+        },
+        meanings_rev_en: {
+            General: "A forced choice or added confusion arrives. A false peace is about to shatter.",
+            Love: "Hidden tensions are about to explode. Stop avoiding the issue and face the truth directly.",
+            Money: "The financial balance breaks down and a loss may occur. Act quickly to find a solution.",
+            Career: "Decision paralysis is wasting precious study time. Just start with one thing properly."
         }
     },
     {
@@ -45,6 +69,18 @@ const swordCards = [
             연애: "오해가 풀리고 다시 관계를 회복합니다. 아픈 만큼 더 단단해지는 시기입니다.",
             금전: "금전적 고비를 넘기고 서서히 안정을 찾습니다. 잃은 것보다 남은 것에 집중하세요.",
             학업: "슬럼프를 극복하고 다시 의욕을 찾습니다. 과거의 실패가 좋은 교훈이 됩니다."
+        },
+        meanings_en: {
+            General: "Emotional pain or sad news may come. This is also a time of insight and growth through hardship.",
+            Love: "Heartbreak from separation or betrayal is a real risk. Time and space are needed for healing.",
+            Money: "Financial loss or a broken deal may bring disappointment. Compose yourself and manage the situation calmly.",
+            Career: "Grades may fall short of expectations and bring discouragement. Find the cause rather than blaming yourself."
+        },
+        meanings_rev_en: {
+            General: "Healing begins and the pain starts to lift. A spirit of reconciliation and forgiveness is arriving.",
+            Love: "Misunderstandings dissolve and the relationship recovers. You grow stronger through the experience.",
+            Money: "You navigate through financial difficulty and slowly find stability. Focus on what remains, not what was lost.",
+            Career: "You overcome the slump and rediscover your motivation. Past failures become your best teachers."
         }
     },
     {
@@ -61,6 +97,18 @@ const swordCards = [
             연애: "거리를 두던 연인과 다시 교류를 시작합니다. 활기찬 만남이 재개됩니다.",
             금전: "멈췄던 자금이 다시 회전하기 시작합니다. 새로운 경제 활동에 나설 준비를 하세요.",
             학업: "다시 공부에 집중할 에너지가 생깁니다. 밀렸던 과제들을 처리하기 좋습니다."
+        },
+        meanings_en: {
+            General: "Your tired body and mind desperately need rest. Meditation and quiet recovery are the best medicine.",
+            Love: "The relationship needs a period of rest. Take some time alone and plan thoughtfully for the future.",
+            Money: "It is best to reduce activity and hold your funds steady. Financial rest and recovery are needed.",
+            Career: "Beware of burnout. You must step away from the desk briefly to reset before you can advance."
+        },
+        meanings_rev_en: {
+            General: "Rest is ending and you are ready to resume activity. Your body and mind are slowly lightening.",
+            Love: "A lover you kept at a distance begins to reconnect with you. Lively meetings resume.",
+            Money: "Funds that were frozen begin to circulate again. Prepare yourself for new economic activity.",
+            Career: "Energy to focus on studying returns. This is a good time to work through everything that had piled up."
         }
     },
     {
@@ -77,6 +125,18 @@ const swordCards = [
             연애: "지긋지긋한 싸움을 끝내고 화해하거나, 깔끔하게 관계를 정리하게 됩니다.",
             금전: "금전적 갈등이 해결됩니다. 손해를 보더라도 마음의 평화를 얻는 쪽을 택하세요.",
             학업: "경쟁 압박에서 벗어나 평정심을 찾습니다. 주변과 정보를 공유하며 공부하세요."
+        },
+        meanings_en: {
+            General: "Even a victory may feel like a hollow win. Guard against a selfish or ruthless attitude.",
+            Love: "Pride-driven arguments easily wound both parties. Harmony matters far more than being right.",
+            Money: "Gains through unfair or competitive means will have consequences. Hold on to your integrity.",
+            Career: "Rivalry with friends may escalate beyond healthy competition. You become focused on individual gain over teamwork."
+        },
+        meanings_rev_en: {
+            General: "Conflict comes to an end and peace returns. It is time to admit your own mistakes and apologize.",
+            Love: "A grinding argument finally ends in reconciliation, or the relationship is cleanly ended.",
+            Money: "Financial conflict is resolved. It may cost you something, but peace of mind is worth more.",
+            Career: "The pressure of competition lifts and your equilibrium returns. Reclaim your own natural pace."
         }
     },
     {
@@ -93,6 +153,18 @@ const swordCards = [
             연애: "과거의 문제에서 벗어나지 못하고 제자리걸음 중입니다. 진정한 해결이 필요합니다.",
             금전: "자금 문제가 해결되지 않고 계속 발목을 잡습니다. 임시방편은 통하지 않습니다.",
             학업: "공부 환경을 바꿔도 집중이 안 됩니다. 환경보다 마음가짐의 변화가 우선입니다."
+        },
+        meanings_en: {
+            General: "You leave difficult circumstances behind and move toward a better place. Gradual recovery is underway.",
+            Love: "Tensions ease and the relationship moves toward a calmer state. Travel or a move may be the catalyst.",
+            Money: "A tough financial situation slowly begins to improve. Move your assets to a safer position.",
+            Career: "Changing your study environment will lift your efficiency. You are emerging from your slump."
+        },
+        meanings_rev_en: {
+            General: "Are you running from the problem? The storm has not fully passed yet.",
+            Love: "You are still stuck in past issues and going in circles. True resolution is still needed.",
+            Money: "The financial problem is unresolved and still holding you back. Temporary fixes will not work.",
+            Career: "Changing your study space does not improve your focus. An inner attitude shift must come first."
         }
     },
     {
@@ -109,6 +181,18 @@ const swordCards = [
             연애: "숨겨왔던 진실이 밝혀지며 관계가 변합니다. 거짓 없는 대화로 위기를 넘기세요.",
             금전: "잃어버렸던 것을 되찾거나 잘못된 투자를 바로잡습니다. 정직한 방법이 답입니다.",
             학업: "공부의 요행이 통하지 않음을 깨닫습니다. 다시 정석대로 학습을 시작합니다."
+        },
+        meanings_en: {
+            General: "Be wary of tricks or deception. Strategy and clever maneuvering are needed more than brute force.",
+            Love: "Secrets may be forming between you, or honesty may be lacking. Check the foundations of trust.",
+            Money: "Guard against unexpected losses or theft. Underhanded investment strategies will ultimately backfire.",
+            Career: "You may be tempted to rely on luck or last-minute cramming. Selective studying without real depth is risky."
+        },
+        meanings_rev_en: {
+            General: "Secrets are exposed or a deception is revealed. Coming clean is the best policy.",
+            Love: "Hidden truths come to light and change the dynamic. Navigate the crisis with honest conversation.",
+            Money: "Something lost is recovered or a bad investment is corrected. The honest path is always the right one.",
+            Career: "You realize that study shortcuts do not work. You restart your learning the proper, methodical way."
         }
     },
     {
@@ -125,6 +209,18 @@ const swordCards = [
             연애: "답답했던 관계에 실마리가 풀립니다. 자신의 가치를 깨닫고 주도적으로 행동합니다.",
             금전: "막혔던 자금 흐름이 트이기 시작합니다. 경제적 제약에서 벗어날 기회가 옵니다.",
             학업: "공부의 장벽을 허물고 자신감을 되찾습니다. 막혔던 개념이 이해되기 시작합니다."
+        },
+        meanings_en: {
+            General: "You are trapped in a prison of your own making. Remove the blindfold and the way forward will appear.",
+            Love: "You feel paralyzed about what to do in the relationship. Release your fear and see the situation clearly.",
+            Money: "Your finances feel frozen and immovable. The real crisis is more psychological than financial.",
+            Career: "Anxiety about poor grades is stopping you from studying at all. Just start, and momentum will follow."
+        },
+        meanings_rev_en: {
+            General: "You break free from your bonds and rediscover freedom. You finally find the solution to the problem.",
+            Love: "Clarity returns to an oppressive relationship. You realize your own worth and act with new confidence.",
+            Money: "A blocked financial flow begins to move again. The opportunity to escape economic restrictions arrives.",
+            Career: "You tear down the wall blocking your studies and regain your confidence. Concepts that stumped you click into place."
         }
     },
     {
@@ -141,6 +237,18 @@ const swordCards = [
             연애: "괴롭히던 연애 고민에서 벗어납니다. 마음을 다스리고 현실적인 대화에 나섭니다.",
             금전: "파산이나 큰 손실에 대한 공포에서 탈출합니다. 현실적인 복구 계획이 가동됩니다.",
             학업: "압박감을 털어내고 다시 페이스를 찾습니다. 걱정 대신 행동하기 시작합니다."
+        },
+        meanings_en: {
+            General: "Anxiety and stress are causing sleepless nights. Remember: ninety percent of worries never materialize.",
+            Love: "Excessive suspicion or worry about your partner is tormenting you. Stop the cycle of lonely overthinking.",
+            Money: "Financial pressure is weighing heavily, but you haven't actually collapsed yet. Get a clear look at the actual numbers.",
+            Career: "Severe exam anxiety or grade pressure is overwhelming. Healthy sleep and mindset training are your top priorities."
+        },
+        meanings_rev_en: {
+            General: "The worst has passed and anxiety is subsiding. Light at the end of the tunnel is visible at last.",
+            Love: "You free yourself from tormenting relationship worries. Compose yourself and engage in real, grounded conversation.",
+            Money: "The fear of bankruptcy or major loss loosens its grip. A realistic recovery plan is now set in motion.",
+            Career: "You shed the overwhelming pressure and find your rhythm again. You start taking action instead of just worrying."
         }
     },
     {
@@ -157,6 +265,18 @@ const swordCards = [
             연애: "최악의 고비를 넘기고 관계를 재건하거나, 새로운 인연을 만날 준비가 됩니다.",
             금전: "최악의 재정 상태에서 반등의 기회를 잡습니다. 빚이나 손실이 서서히 해결됩니다.",
             학업: "실패를 딛고 다시 일어섭니다. 바닥을 쳤으니 이제는 올라갈 일만 남았습니다."
+        },
+        meanings_en: {
+            General: "This is rock bottom. But it also signals an ending—from here, there is nowhere to go but up.",
+            Love: "A devastating breakup or deep wound may occur. A clean break is necessary to allow a new start.",
+            Money: "You are hitting a financial low. Make the decision to cut losses decisively and completely.",
+            Career: "Your study plans may completely fall apart or bring the worst grades yet. Rebuild patiently from the ground floor."
+        },
+        meanings_rev_en: {
+            General: "You narrowly survive the crisis. The suffering is ending and the energy of renewal is arriving.",
+            Love: "You survive the worst of the ordeal and begin to rebuild the relationship, or prepare for a truly fresh start.",
+            Money: "From the depths of financial trouble, an opportunity for a rebound appears. Debt and losses begin to be resolved.",
+            Career: "You rise again after a major failure. You have hit the bottom, so now the only direction is up."
         }
     },
     {
@@ -173,6 +293,18 @@ const swordCards = [
             연애: "냉소적인 태도로 상대에게 상처를 줄 수 있습니다. 말 한마디를 조심해야 합니다.",
             금전: "어설픈 정보에 투자했다가 손해를 봅니다. 사기나 뜬소문을 극도로 경계하세요.",
             학업: "아는 체하다가 망신을 당할 수 있습니다. 깊이 없는 공부를 경계하고 겸손해지세요."
+        },
+        meanings_en: {
+            General: "Your vigilance and observational skills are sharp. Pay close attention to new information and news.",
+            Love: "You approach your interest with cautious curiosity. Intellectually stimulating conversation is genuinely attractive.",
+            Money: "This is an excellent time to gather new investment research. Be thorough in your market analysis before acting.",
+            Career: "Your critical thinking skills are sharpening. You stand out in subjects requiring logical analysis."
+        },
+        meanings_rev_en: {
+            General: "Careless speech may cause unnecessary trouble. Do not spread information that hasn't been verified.",
+            Love: "A cynical attitude may hurt your partner. Every single word you speak now must be chosen with care.",
+            Money: "An investment based on weak information leads to losses. Be extremely wary of scams and unfounded rumors.",
+            Career: "Showing off shallow knowledge may lead to embarrassment. Stay humble and commit to studying with real depth."
         }
     },
     {
@@ -189,6 +321,18 @@ const swordCards = [
             연애: "너무 거칠게 몰아붙여 상대를 겁나게 할 수 있습니다. 부드러운 화법이 필요합니다.",
             금전: "충동적인 매매로 큰 손해를 볼 수 있습니다. 질주를 멈추고 냉정해져야 합니다.",
             학업: "진도는 빠르나 실수가 많습니다. 아는 문제도 틀리기 쉬우니 검토가 필수입니다."
+        },
+        meanings_en: {
+            General: "You charge forward toward your goal with unstoppable drive. Your decisiveness is your defining trait today.",
+            Love: "You take bold initiative or confront relationship conflicts head-on. A direct and honest love is unfolding.",
+            Money: "Quick and decisive judgment secures the prize. When opportunity knocks, do not hesitate.",
+            Career: "Ideal for pushing through a massive amount of study in a short time. Your breakthrough power is at its peak."
+        },
+        meanings_rev_en: {
+            General: "A reckless charge could cause a serious mishap. Your impulsiveness is your greatest enemy right now.",
+            Love: "Pushing too aggressively may frighten your partner away. A gentler approach and softer tone are necessary.",
+            Money: "An impulsive trade or purchase could result in a major loss. Stop the charge and cool down your thinking.",
+            Career: "Rapid progress is undermined by careless errors. Even familiar problems are easily missed—always review your work."
         }
     },
     {
@@ -205,6 +349,18 @@ const swordCards = [
             연애: "상대의 단점만 지적하며 고집을 부릴 수 있습니다. 마음의 문을 조금 더 여세요.",
             금전: "금전적으로 인색해지고 주변과 마찰이 생깁니다. 융통성 없는 관리가 독이 됩니다.",
             학업: "자신의 방식만 옳다고 믿어 새로운 지식을 거부합니다. 시야를 넓혀야 합니다."
+        },
+        meanings_en: {
+            General: "A leader of sharp insight and strict rationality. Fairness and impartiality are the right answers here.",
+            Love: "This is a love that is not swayed by emotion. Clarity and directness are valued, though it may sometimes feel cold.",
+            Money: "Cold, precise asset management allows absolutely no margin for error. A crystal-clear budget is necessary.",
+            Career: "Your ability to cut through to the core is exceptional. Today is perfect for creating a flawless error-review notebook."
+        },
+        meanings_rev_en: {
+            General: "Being overly critical and sharp may drive people away. A measure of compassion is needed.",
+            Love: "You may be pointing out only your partner's flaws and stubbornly holding your ground. Open your heart a little.",
+            Money: "You are becoming financially stingy and creating friction with others. Inflexible management is becoming a liability.",
+            Career: "Believing only your own method is correct prevents you from absorbing new knowledge. Broaden your horizons."
         }
     },
     {
@@ -221,6 +377,18 @@ const swordCards = [
             연애: "사랑을 머리로만 하려 합니다. 따뜻한 감정이 배제된 연애는 상대를 지치게 합니다.",
             금전: "법적 분쟁이나 세무 관련 문제가 생길 수 있습니다. 원칙을 어긴 대가를 치릅니다.",
             학업: "지식에 대한 오만함이 성장을 가로막습니다. 모르는 것을 인정하는 용기가 필요합니다."
+        },
+        meanings_en: {
+            General: "A supreme intellect and authority figure. Uphold your principles and great success will follow.",
+            Love: "You engage in a mature and logical relationship. You become a trusted and steadfast advisor to your partner.",
+            Money: "Expert-level vision designs a path to significant gains. Legal and documentary precision protects your wealth.",
+            Career: "You establish a flawless study strategy. Highly advantageous for written exams and professional qualifications."
+        },
+        meanings_rev_en: {
+            General: "An authoritarian and dogmatic attitude may invite criticism. Do not abuse the power you hold.",
+            Love: "You are trying to conduct love purely with your head. A love stripped of warmth and feeling will exhaust your partner.",
+            Money: "Legal disputes or tax-related problems may arise. The price of breaking the rules must now be paid.",
+            Career: "Arrogance about your knowledge is blocking your growth. The courage to admit what you don't know is essential."
         }
     }
 ];

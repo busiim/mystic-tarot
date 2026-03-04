@@ -170,3 +170,19 @@ header h1 {
 .reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #777; font-size: 0.8rem; }
 
 .hidden { display: none !important; }
+
+/* 언어 토글 버튼 */
+#lang-toggle {
+    position: fixed; top: 15px; right: 15px; z-index: 100;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: var(--gold-color);
+    font-family: var(--fancy-font);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+#lang-toggle:hover { background: rgba(212, 175, 55, 0.15); }

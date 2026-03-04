@@ -13,6 +13,18 @@ const majorCards = [
             연애: "책임감 없는 태도로 갈등이 생길 수 있습니다. 신뢰를 쌓는 노력이 필요합니다.",
             금전: "충동구매로 잔고가 위태롭습니다. 지갑을 닫고 지출을 점검하세요.",
             학업: "집중력이 산만해져 마무리가 부족합니다. 한 우물을 파는 끈기가 필요합니다."
+        },
+        meanings_en: {
+            General: "A new journey begins with boundless potential. Follow your heart and embrace the adventure ahead.",
+            Love: "A fresh, innocent love is blooming. Open your heart without calculation.",
+            Money: "New opportunities arise, but avoid impulsive spending without a plan.",
+            Career: "An ideal time to explore new fields. Your creativity will shine brightly."
+        },
+        meanings_rev_en: {
+            General: "A reckless start may lead to trouble. Think twice before making decisions.",
+            Love: "Irresponsibility may cause conflict. Work on building trust with your partner.",
+            Money: "Impulsive purchases are draining your account. Close your wallet and review spending.",
+            Career: "Scattered focus is leaving things unfinished. Commit to one path with perseverance."
         }
     },
     {
@@ -29,6 +41,18 @@ const majorCards = [
             연애: "말만 앞서고 행동이 따르지 않아 신뢰를 잃을 수 있습니다. 진실함이 답입니다.",
             금전: "화려한 겉모습에 속아 실속 없는 투자를 할 수 있습니다. 내실을 다지세요.",
             학업: "요행을 바라지 마세요. 정석대로 공부해야 결과가 따라옵니다."
+        },
+        meanings_en: {
+            General: "Your talents are ready to be unleashed. You have everything you need to begin.",
+            Love: "Your charm is magnetic. Confidence will captivate the one you desire.",
+            Money: "Your ideas can generate income now. Use your skills to create real profit.",
+            Career: "Your mental clarity is at its peak. Expect excellent results on exams or projects."
+        },
+        meanings_rev_en: {
+            General: "Are you misusing your abilities? Beware of deception or being deceived.",
+            Love: "Words without action erode trust. Sincerity is the only answer.",
+            Money: "Flashy appearances may hide empty returns. Focus on substance over show.",
+            Career: "Don't rely on shortcuts. Solid, consistent effort is the only way to results."
         }
     },
     {
@@ -45,6 +69,18 @@ const majorCards = [
             연애: "상대에게 너무 차갑게 대하고 있지는 않나요? 마음을 열고 소통하세요.",
             금전: "보이지 않는 곳에서 돈이 새어 나가고 있습니다. 서류와 계약을 재확인하세요.",
             학업: "이론에만 매몰되어 실천력이 부족합니다. 배운 것을 실제로 적용해 보세요."
+        },
+        meanings_en: {
+            General: "Listen to your inner voice. Your intuition is your greatest guide right now.",
+            Love: "Spiritual and emotional connection matters most. Observe quietly for now.",
+            Money: "Wisdom in financial management is needed. This is not the time for big investments.",
+            Career: "Deep research and study are highly favored. A quiet environment will help you focus."
+        },
+        meanings_rev_en: {
+            General: "Overthinking may lead to decision paralysis. Secrets may come to light.",
+            Love: "Are you being too cold or distant? Open your heart and communicate more.",
+            Money: "Money is leaking from unseen places. Re-check documents and contracts carefully.",
+            Career: "Too much theory, not enough practice. Apply what you have learned in real situations."
         }
     },
     {
@@ -61,6 +97,18 @@ const majorCards = [
             연애: "너무 집착하거나 요구하는 것이 많지는 않은지 돌아보세요. 권태기를 주의하세요.",
             금전: "겉치레를 위해 큰돈을 쓰는 것을 자제하세요. 낭비벽이 생길 수 있습니다.",
             학업: "게으름으로 인해 계획이 미뤄집니다. 기초부터 다시 다질 필요가 있습니다."
+        },
+        meanings_en: {
+            General: "A time of abundance and fruition. Your efforts are finally being rewarded.",
+            Love: "A warm and devoted love surrounds you. Your relationship grows richer and more stable.",
+            Money: "Financial luck is very strong. Unexpected gains and prosperity are on their way.",
+            Career: "Creative and artistic endeavors flourish. Keep a peaceful mindset and trust the process."
+        },
+        meanings_rev_en: {
+            General: "Greed or laziness could cause problems. Learn to manage your emotions.",
+            Love: "Are you being too possessive or demanding? Watch out for complacency in the relationship.",
+            Money: "Avoid spending large sums on appearances. A tendency toward wastefulness is rising.",
+            Career: "Procrastination is delaying your plans. Rebuild your foundation from the basics up."
         }
     },
     {
@@ -77,6 +125,18 @@ const majorCards = [
             연애: "상대를 통제하려다 다툼이 생깁니다. 고집을 꺾고 부드럽게 대화하세요.",
             금전: "무리한 투자는 독이 됩니다. 권위 실추나 손실을 조심해야 합니다.",
             학업: "과도한 압박감에 능률이 떨어집니다. 스스로를 너무 몰아세우지 마세요."
+        },
+        meanings_en: {
+            General: "Strong leadership energy is with you. Push forward with your plans and success will follow.",
+            Love: "A responsible, dependable love is forming. You are ready to take the lead in romance.",
+            Money: "Your financial foundation is becoming solid. Long-term wealth management looks favorable.",
+            Career: "Discipline and a firm plan are essential. Your willpower will achieve your goals."
+        },
+        meanings_rev_en: {
+            General: "Stubbornness may create friction. Flexibility is needed now.",
+            Love: "Trying to control your partner will cause arguments. Soften your approach in conversation.",
+            Money: "Overextending with risky investments could backfire. Watch for financial losses.",
+            Career: "Excessive pressure is killing your productivity. Stop pushing yourself so hard."
         }
     },
     {
@@ -93,6 +153,18 @@ const majorCards = [
             연애: "주변의 지나친 간섭이 방해가 됩니다. 두 사람만의 원칙을 세우세요.",
             금전: "보증이나 잘못된 계약에 휘말릴 수 있습니다. 원칙을 벗어나지 마세요.",
             학업: "공부 방식에 의구심이 생깁니다. 독단보다는 검증된 방법을 찾으세요."
+        },
+        meanings_en: {
+            General: "Seek the guidance of a mentor. Traditional methods and trusted relationships matter.",
+            Love: "A stable, morally grounded relationship forms. Spiritual support strengthens the bond.",
+            Money: "Conservative asset management is wise. A professional advisor will bring gains.",
+            Career: "A teacher or senior's guidance is invaluable. Stay committed to the formal learning path."
+        },
+        meanings_rev_en: {
+            General: "Misleading advice or rigid thinking may hold you back. Broaden your perspective.",
+            Love: "Outside interference is causing problems. Establish boundaries as a couple.",
+            Money: "You may be drawn into flawed contracts or guarantees. Don't stray from sound principles.",
+            Career: "You're questioning your study methods. Seek proven approaches rather than acting alone."
         }
     },
     {
@@ -109,6 +181,18 @@ const majorCards = [
             연애: "소통 부재나 삼각관계로 갈등이 생길 수 있습니다. 진심을 나누세요.",
             금전: "유혹에 의한 충동적 지출을 주의하세요. 계약은 미루는 것이 좋습니다.",
             학업: "공부 외적인 유혹에 빠지기 쉽습니다. 집중력을 회복해야 합니다."
+        },
+        meanings_en: {
+            General: "A pivotal choice lies before you. Let your heart guide your decision.",
+            Love: "A deeply passionate union is forming. This is a blissful time of mutual attraction.",
+            Money: "Partnership or collaboration leads to financial gain. Harmony is the key.",
+            Career: "Great progress comes in subjects you're passionate about. Choose wisely and focus."
+        },
+        meanings_rev_en: {
+            General: "A poor choice or relational discord looms. Proceed with caution.",
+            Love: "Miscommunication or a love triangle may cause conflict. Share your true feelings.",
+            Money: "Temptation-driven impulsive spending should be avoided. Delay major contracts for now.",
+            Career: "External temptations are pulling you away from study. Reclaim your focus."
         }
     },
     {
@@ -125,6 +209,18 @@ const majorCards = [
             연애: "일방적인 고집은 상대를 지치게 합니다. 연애의 속도를 조절하세요.",
             금전: "성급한 움직임이 화가 됩니다. 계획 없는 투자는 절대로 금물입니다.",
             학업: "의욕만 앞서고 마무리가 부족합니다. 체력 안배와 체계가 필요합니다."
+        },
+        meanings_en: {
+            General: "An unstoppable advance toward victory. Powerful momentum will bring success.",
+            Love: "Be bold and take initiative. Your confidence will win the heart you desire.",
+            Money: "Results are coming quickly. Projects in motion will soon generate income.",
+            Career: "Charge toward your goal. Your intense focus will produce outstanding results."
+        },
+        meanings_rev_en: {
+            General: "Loss of direction or poor emotional control may cause mistakes. Stay calm.",
+            Love: "Pushing too hard in one direction will exhaust your partner. Adjust the pace.",
+            Money: "Hasty moves will backfire. Never invest without a solid plan.",
+            Career: "Enthusiasm without follow-through falls short. Balance energy and strategy."
         }
     },
     {
@@ -141,6 +237,18 @@ const majorCards = [
             연애: "자존심 싸움으로 관계가 위태롭습니다. 상대에게 조금 더 부드러워지세요.",
             금전: "충동을 억제하지 못해 과소비를 할 수 있습니다. 절제가 필요한 시점입니다.",
             학업: "슬럼프에 빠지기 쉽습니다. 자신을 믿고 다시 시작하는 용기가 중요합니다."
+        },
+        meanings_en: {
+            General: "Gentle charisma and quiet power prevail. Patience and compassion are your keys to victory.",
+            Love: "A deep, nurturing love supports your partner. Your patience builds lasting trust.",
+            Money: "Your ability to control spending is excellent. Wealth grows from a long-term perspective.",
+            Career: "Even difficult challenges yield to persistence. Consistent effort will produce great grades."
+        },
+        meanings_rev_en: {
+            General: "You may feel a loss of confidence or be overwhelmed. Rest and recharge your energy.",
+            Love: "A battle of egos is threatening the relationship. Try to be gentler with your partner.",
+            Money: "Inability to restrain impulses may lead to overspending. Discipline is urgently needed.",
+            Career: "A slump may hit hard. Believe in yourself and find the courage to start again."
         }
     },
     {
@@ -157,6 +265,18 @@ const majorCards = [
             연애: "너무 따지고 재고 있지는 않나요? 마음의 문을 조금 더 열어보세요.",
             금전: "지나치게 인색해져 주위의 인심을 잃을 수 있습니다. 베풂도 필요합니다.",
             학업: "좁은 시야에 갇혀 핵심을 놓치고 있습니다. 주변의 의견도 참고하세요."
+        },
+        meanings_en: {
+            General: "A time for inner reflection. Answers will come through solitude and contemplation.",
+            Love: "A cautious approach is needed now. Take time to seriously consider the future of the relationship.",
+            Money: "Maintain what you have rather than chasing more. This is the best time to quietly plan ahead.",
+            Career: "Solo study is most effective right now. Immerse yourself in deep, focused research."
+        },
+        meanings_rev_en: {
+            General: "Too much isolation may lead to loneliness. Some connection and communication is necessary.",
+            Love: "Are you overthinking everything? Open your heart a little more.",
+            Money: "Excessive stinginess may cost you goodwill. Generosity has its own rewards.",
+            Career: "A narrow perspective is causing you to miss the key point. Consider outside opinions."
         }
     },
     {
@@ -173,6 +293,18 @@ const majorCards = [
             연애: "타이밍이 맞지 않아 엇갈릴 수 있습니다. 서두른다고 해결되지 않습니다.",
             금전: "갑작스러운 지출이나 수입 감소에 대비하세요. 비상금이 필요합니다.",
             학업: "운에 기대지 말고 실력을 쌓으세요. 성적의 기복이 심해질 수 있습니다."
+        },
+        meanings_en: {
+            General: "An unstoppable wave of change is coming. Don't miss the opportunity that fortune brings.",
+            Love: "A fateful meeting is on the horizon. A relationship is about to accelerate wonderfully.",
+            Money: "An unexpected windfall or reversal of fortune is resolving financial concerns.",
+            Career: "Lucky results that exceed your effort are coming. Ride this positive wave."
+        },
+        meanings_rev_en: {
+            General: "Events are flowing in an unexpected direction. Be patient and wait for the next opening.",
+            Love: "Timing is off and you may keep missing each other. Rushing won't solve anything.",
+            Money: "Brace for sudden expenses or a dip in income. An emergency fund is essential.",
+            Career: "Don't rely on luck; build genuine skill. Performance may become erratic."
         }
     },
     {
@@ -189,6 +321,18 @@ const majorCards = [
             연애: "너무 따지는 태도가 상처를 줄 수 있습니다. 상대의 감정도 고려하세요.",
             금전: "법적 문제나 금전적 불이익을 조심하세요. 계산을 철저히 해야 합니다.",
             학업: "노력에 비해 아쉬운 결과가 나올 수 있습니다. 부족한 부분을 분석하세요."
+        },
+        meanings_en: {
+            General: "Clear, impartial judgment is required. You will reap exactly what you have sown.",
+            Love: "Balance and respect are essential to the relationship. Resolve issues through rational dialogue.",
+            Money: "Contracts and legal documents are favorable. Money owed to you will be returned.",
+            Career: "Your results will honestly reflect your efforts. There's no room for shortcuts here."
+        },
+        meanings_rev_en: {
+            General: "Unfair treatment or biased thinking may arise. Strive to remain neutral.",
+            Love: "Being overly critical may cause emotional harm. Consider your partner's feelings.",
+            Money: "Legal issues or financial penalties may arise. Double-check all calculations.",
+            Career: "Results may fall short of expectations. Analyze what is lacking and adjust."
         }
     },
     {
@@ -205,6 +349,18 @@ const majorCards = [
             연애: "보답 없는 사랑에 지칠 수 있습니다. 자신의 가치를 먼저 소중히 하세요.",
             금전: "손해 보는 투자를 억지로 끌고 가고 있습니다. 결단력이 필요한 시점입니다.",
             학업: "노력의 방향이 잘못되었습니다. 무작정 공부하기보다 전략을 바꾸세요."
+        },
+        meanings_en: {
+            General: "A new perspective is needed. The patience you show now will be richly rewarded later.",
+            Love: "A spirit of sacrifice sustains the relationship. Now is the time to be a little more patient.",
+            Money: "Funds may feel tied up, but this is a temporary pause that leads to greater gain.",
+            Career: "Approaching your studies from a different angle will unlock what was blocking you. Don't rush."
+        },
+        meanings_rev_en: {
+            General: "Are you making pointless sacrifices? Let go of stubborn attachments that serve no purpose.",
+            Love: "Giving without receiving is exhausting you. Value yourself before sacrificing for others.",
+            Money: "You're forcing a losing investment to continue. This is the moment for a decisive cut.",
+            Career: "Your study direction is wrong. Instead of grinding blindly, change your strategy."
         }
     },
     {
@@ -221,6 +377,18 @@ const majorCards = [
             연애: "이미 끝난 관계를 붙잡고 있을 수 있습니다. 마음 정리가 필요합니다.",
             금전: "위험 신호를 무시하고 있습니다. 큰 손해 전에 손절을 결정해야 합니다.",
             학업: "나쁜 습관을 버리지 못해 성적이 오르지 않습니다. 과감히 변해야 합니다."
+        },
+        meanings_en: {
+            General: "The old chapter closes as a new one begins. Accept transformation with an open heart.",
+            Love: "An ending or major shift in a relationship marks the beginning of a new connection.",
+            Money: "A bold restructuring is needed. Cut unnecessary fixed expenses completely.",
+            Career: "Abandon your old study methods and start completely fresh. A new beginning awaits."
+        },
+        meanings_rev_en: {
+            General: "You are resisting change and clinging to the past. You must break free from stagnation.",
+            Love: "You may be holding on to a relationship that has already ended. Closure is needed.",
+            Money: "You're ignoring warning signs. Decide to cut losses before a bigger disaster strikes.",
+            Career: "Bad habits are preventing improvement. Radical change is necessary now."
         }
     },
     {
@@ -237,6 +405,18 @@ const majorCards = [
             연애: "의사소통이 삐걱거립니다. 서로의 차이를 인정하려는 노력이 부족합니다.",
             금전: "지출 조절에 실패해 자금 회전이 어렵습니다. 낭비를 경계하세요.",
             학업: "학습 계획이 엉망이 되기 쉽습니다. 다시 규칙적인 생활로 돌아오세요."
+        },
+        meanings_en: {
+            General: "Harmony and moderation are the keys to success. Avoid extremes and maintain balance.",
+            Love: "Calm and stable communication continues. The process of adjusting to each other is joyful.",
+            Money: "Income and expenses are in excellent balance. A smooth, sustainable financial flow continues.",
+            Career: "Study each subject proportionately. Managing your wellbeing is itself a form of skill."
+        },
+        meanings_rev_en: {
+            General: "Emotional regulation is difficult and your life rhythm is breaking down. Restraint is the priority.",
+            Love: "Communication is faltering. There is not enough effort to accept each other's differences.",
+            Money: "Failure to control spending is making cash flow difficult. Guard against wastefulness.",
+            Career: "Your study schedule is falling apart. Return to a regular, disciplined routine."
         }
     },
     {
@@ -253,6 +433,18 @@ const majorCards = [
             연애: "과거의 집착을 끊어냅니다. 이제야 진정으로 건강한 자신을 만납니다.",
             금전: "금전적 압박에서 서서히 탈출합니다. 현실적인 경제 관념이 돌아옵니다.",
             학업: "방황을 끝내고 다시 책상에 앉습니다. 스스로를 이겨낼 힘이 생깁니다."
+        },
+        meanings_en: {
+            General: "Beware of strong temptations or obsessions. You need the courage to break free from what binds you.",
+            Love: "Dangerously magnetic, but risky. Beware of obsessive or addictive patterns in love.",
+            Money: "Short-term gains and speculative temptations are hard to resist. Never go into debt.",
+            Career: "You're vulnerable to distractions like gaming or social media. Create a focused study environment."
+        },
+        meanings_rev_en: {
+            General: "You are beginning to break free from bad habits or toxic relationships. Freedom is returning.",
+            Love: "You are cutting ties with past obsessions. You are finally meeting a healthier version of yourself.",
+            Money: "You are slowly escaping financial pressure. A realistic sense of money management is returning.",
+            Career: "Your wandering is ending as you return to your desk. The strength to overcome yourself is growing."
         }
     },
     {
@@ -269,6 +461,18 @@ const majorCards = [
             연애: "이별 위기를 가까스로 넘깁니다. 근본적인 원인을 해결하려 노력하세요.",
             금전: "큰 고비는 넘겼으나 여전히 불안합니다. 한동안은 지출을 극도로 줄이세요.",
             학업: "공부 능률이 최악인 시기입니다. 억지로 하기보다 멘탈부터 챙기세요."
+        },
+        meanings_en: {
+            General: "A sudden disruption may strike. This destruction paves the way for something better to be built.",
+            Love: "Hidden tensions may erupt. Facing the truth honestly will renew the relationship.",
+            Money: "Secure your funds as a safeguard against financial shocks. Safe asset management comes first.",
+            Career: "Test results may be shocking, but they will reveal your exact weaknesses for targeted improvement."
+        },
+        meanings_rev_en: {
+            General: "A major crisis is narrowly averted, or the turmoil is slowly calming down.",
+            Love: "A breakup crisis is barely survived. Work to resolve the root causes of the conflict.",
+            Money: "The worst is over, but uncertainty remains. Drastically reduce spending for the near future.",
+            Career: "Study efficiency is at its worst. Rather than forcing it, attend to your mental state first."
         }
     },
     {
@@ -285,6 +489,18 @@ const majorCards = [
             연애: "상대에게 너무 큰 기대를 걸어 실망할 수 있습니다. 있는 그대로를 보세요.",
             금전: "기대에 못 미치는 수입에 허탈할 수 있습니다. 지출 계획을 현실화하세요.",
             학업: "목표가 너무 높아 금방 지칩니다. 작은 성공부터 차근차근 맛보세요."
+        },
+        meanings_en: {
+            General: "A period of hope and inspiration. The chances of your dream becoming reality are very high.",
+            Love: "You meet your ideal partner, or your existing relationship receives a wonderful blessing.",
+            Money: "Conditions are gradually improving. Long-term investments will shine brightly in the future.",
+            Career: "Your goals become clear and a hidden talent is discovered. Artistic sensitivity is heightened."
+        },
+        meanings_rev_en: {
+            General: "Are you chasing unrealistic ideals? Be careful of potential disappointment.",
+            Love: "You may be placing too high expectations on your partner and end up let down. See them as they are.",
+            Money: "Income falling short of expectations may feel deflating. Make your spending plan more realistic.",
+            Career: "Goals set too high will lead to burnout quickly. Build confidence through small wins first."
         }
     },
     {
@@ -301,6 +517,18 @@ const majorCards = [
             연애: "불안했던 관계에 확신이 생깁니다. 오해를 풀 좋은 타이밍입니다.",
             금전: "불투명한 자금 흐름이 명확해집니다. 속았던 사실을 알아차리게 됩니다.",
             학업: "공부의 방향을 잡기 시작합니다. 막막함이 걷히고 방법이 보입니다."
+        },
+        meanings_en: {
+            General: "A time of confusion and anxiety. Don't be deceived by appearances; seek the truth beneath.",
+            Love: "Secrets or suspicions may arise between you. Trust your intuition in this situation.",
+            Money: "Guard against fraud and deception. The uncertainty is too great for investing right now.",
+            Career: "Concentration is breaking down and everything feels overwhelming. Mental management is paramount."
+        },
+        meanings_rev_en: {
+            General: "Misunderstandings are clearing and anxiety is fading. The truth is beginning to emerge.",
+            Love: "Clarity is returning to an uncertain relationship. This is a good time to resolve misunderstandings.",
+            Money: "A murky financial picture is becoming clear. You may discover you have been deceived.",
+            Career: "You're beginning to find direction in your studies. The fog is lifting and a path is visible."
         }
     },
     {
@@ -317,6 +545,18 @@ const majorCards = [
             연애: "작은 다툼이 생길 수 있으나 곧 회복됩니다. 너무 들뜨지 않도록 주의하세요.",
             금전: "수익은 있으나 관리에 소홀해 돈이 새 나갑니다. 꼼꼼히 챙기세요.",
             학업: "성적이 오르지만 방심은 금물입니다. 자만하지 말고 페이스를 유지하세요."
+        },
+        meanings_en: {
+            General: "The greatest luck and success shine upon you. Your future is brilliantly bright.",
+            Love: "A love that everyone celebrates and blesses is yours. Pure, joyful energy fills the relationship.",
+            Money: "Financial fortune opens wide. A bonus or unexpected income brings comfortable abundance.",
+            Career: "Confidence soars and achievements are outstanding. The joy of success is waiting for you."
+        },
+        meanings_rev_en: {
+            General: "Only a temporary delay. As long as you guard against arrogance, your luck remains strong.",
+            Love: "A minor disagreement may arise, but it will heal quickly. Try not to get too carried away.",
+            Money: "Income is present, but careless management lets money slip away. Be more diligent.",
+            Career: "Grades are improving, but complacency is dangerous. Stay humble and maintain your pace."
         }
     },
     {
@@ -333,6 +573,18 @@ const majorCards = [
             연애: "과거에 얽매여 나아가지 못합니다. 재회에 대한 미련을 이제는 버리세요.",
             금전: "과거의 채무 문제로 답답해질 수 있습니다. 빨리 정산하고 넘어가야 합니다.",
             학업: "결과가 기대에 못 미쳐 실망할 수 있습니다. 다시 도전할 준비가 필요합니다."
+        },
+        meanings_en: {
+            General: "A decisive announcement is coming. Seize the new opportunity and make a glorious comeback.",
+            Love: "A reunion is strongly favored, or a crucial decision must be made. Honest conversation is the answer.",
+            Money: "Money previously invested is returned, or a contract is finalized. The situation resolves itself.",
+            Career: "The fruits of your effort arrive. An acceptance letter or excellent results are in your near future."
+        },
+        meanings_rev_en: {
+            General: "You are missing opportunities or postponing decisions. Beware of regret arriving too late.",
+            Love: "You are trapped in the past and cannot move forward. Let go of the longing for reconciliation.",
+            Money: "Old debt issues may become frustrating. Settle accounts quickly and move on.",
+            Career: "Results may fall short of hope, leaving you disappointed. Prepare to try again."
         }
     },
     {
@@ -349,6 +601,18 @@ const majorCards = [
             연애: "완벽을 추구하다 보니 오히려 관계가 정체됩니다. 마음을 편히 가지세요.",
             금전: "자금 흐름이 90% 정도만 만족스럽습니다. 마지막 마무리에 집중하세요.",
             학업: "거의 다 왔습니다. 슬럼프를 이겨내고 마지막 한 걸음을 더 내딛으세요."
+        },
+        meanings_en: {
+            General: "The stage of completion and integration. Your goals are achieved with absolute perfection.",
+            Love: "You reach the peak of happiness. This is the finest time for marriage or a major milestone.",
+            Money: "You are at the most financially stable point. Your hard work returns as great abundance.",
+            Career: "Every goal you set is accomplished. Study related to overseas or international topics is especially favored."
+        },
+        meanings_rev_en: {
+            General: "You have paused just before the finish line. A little more effort will bring you to completion.",
+            Love: "Pursuit of perfection is actually stalling the relationship. Allow yourself to be at ease.",
+            Money: "Cash flow is about 90% satisfying. Focus on completing the final details.",
+            Career: "You're almost there. Overcome the final slump and take one more step forward."
         }
     }
 ];

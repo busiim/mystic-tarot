@@ -13,6 +13,18 @@ const pentacleCards = [
             연애: "관계의 가치관이 현실적으로 부딪힐 수 있습니다. 아직은 서두를 때가 아닙니다.",
             금전: "예상했던 돈이 들어오지 않거나 투자가 실패할 수 있습니다. 자산 관리에 주의하세요.",
             학업: "공부에 대한 보상이 늦어집니다. 기본기가 부족하여 성과가 잘 나오지 않습니다."
+        },
+        meanings_en: {
+            General: "The seed of real-world success is being planted. A new opportunity for prosperity and stability has arrived.",
+            Love: "A stable and grounded relationship is beginning. An excellent time to make commitments or promises.",
+            Money: "A windfall or a new income source emerges. Exceptionally auspicious financial news is on its way.",
+            Career: "Scholarship or top grades reward your efforts. Your foundation is growing stronger and more secure."
+        },
+        meanings_rev_en: {
+            General: "A good opportunity may be missed or a plan delayed. More preparation is still needed.",
+            Love: "Practical values in the relationship may clash. This is not yet the time to rush forward.",
+            Money: "Expected money may not arrive or an investment could fail. Exercise caution in asset management.",
+            Career: "Rewards for your study efforts are slow to arrive. Insufficient fundamentals are making it hard to produce results."
         }
     },
     {
@@ -29,6 +41,18 @@ const pentacleCards = [
             연애: "감정 기복이 심해 관계가 불안정해집니다. 한 사람에게 집중하지 못할 수 있습니다.",
             금전: "지출 조절에 실패해 재정적 혼란이 옵니다. 빚이 늘어나지 않도록 주의하세요.",
             학업: "너무 많은 일을 벌여 이도 저도 안 되는 상태입니다. 한 과목씩 끝내세요."
+        },
+        meanings_en: {
+            General: "You must find your balance within a shifting situation. A flexible and adaptable response is needed.",
+            Love: "You are caught between romance and work. Finding the right allocation of your time is critically important.",
+            Money: "Cash is moving actively. A juggling act with funds may be necessary, but it remains manageable.",
+            Career: "You will be juggling two or more assignments simultaneously. Your multitasking ability is rising to shine."
+        },
+        meanings_rev_en: {
+            General: "An unmanageable situation is causing the balance to break down. Focus and prioritization are desperately needed.",
+            Love: "Emotional ups and downs are destabilizing the relationship. You may be unable to commit to just one person.",
+            Money: "Failure to control spending triggers financial chaos. Watch carefully to prevent debt from growing.",
+            Career: "Too many things have been started at once and nothing is getting done. Finish each subject before moving on."
         }
     },
     {
@@ -45,6 +69,18 @@ const pentacleCards = [
             연애: "사소한 생활 방식의 차이로 다툴 수 있습니다. 서로에 대한 존중이 필요합니다.",
             금전: "금전적인 배분 문제로 다툼이 생길 수 있습니다. 계약 관계를 명확히 하세요.",
             학업: "팀원과의 불화로 성적이 떨어질 수 있습니다. 독단적인 학습보다는 소통이 중요합니다."
+        },
+        meanings_en: {
+            General: "A time when collaboration and professional skill are recognized and rewarded. Teamwork produces remarkable results.",
+            Love: "You are designing a shared future and learning to adapt to each other. The relationship is blessed by those around you.",
+            Money: "Skills and talent generate real income. Collaborative investments and business ventures look very favorable.",
+            Career: "You take a leading role in group study or a team project. Your abilities improve dramatically."
+        },
+        meanings_rev_en: {
+            General: "Poor teamwork and skill gaps are causing delays. The fundamentals need to be rebuilt from scratch.",
+            Love: "Minor lifestyle differences may cause friction. Mutual respect must be consciously practiced.",
+            Money: "Disputes over financial distribution may erupt. Make all contractual relationships explicit and clear.",
+            Career: "Conflict with teammates may drag grades down. Open communication matters more than going it alone."
         }
     },
     {
@@ -61,6 +97,18 @@ const pentacleCards = [
             연애: "집착을 버리고 자유를 찾거나, 반대로 관계가 소원해질 수 있습니다.",
             금전: "갑작스러운 큰 지출로 모아둔 돈이 나갈 수 있습니다. 융통성 없는 관리가 화가 됩니다.",
             학업: "암기 위주의 공부에 한계가 옵니다. 응용력을 키우기 위해 시야를 넓혀야 합니다."
+        },
+        meanings_en: {
+            General: "A strong desire to possess and a drive to seek security. The power to hold on is good, but rigidity is a vulnerability.",
+            Love: "You may be trying to possess or cling too tightly to your partner. Give yourself and them more room to breathe.",
+            Money: "Your ability to save and accumulate money is exceptional. However, excessive stinginess will push people away.",
+            Career: "Your ability to truly internalize knowledge is very strong. Conservative and methodical study approaches favor you."
+        },
+        meanings_rev_en: {
+            General: "Excessive tightfistedness may cost you what truly matters. Letting go is necessary.",
+            Love: "You release your clinging grip and seek freedom, or conversely, the relationship grows more distant.",
+            Money: "A sudden large expense may drain the funds you have saved. Inflexible management is becoming a real liability.",
+            Career: "Rote memorization is hitting its ceiling. You must broaden your perspective to develop real application skills."
         }
     },
     {
@@ -77,6 +125,18 @@ const pentacleCards = [
             연애: "어려웠던 상황이 풀리고 안정을 찾습니다. 다시 데이트를 즐길 여유가 생깁니다.",
             금전: "금전적인 도움을 줄 귀인이 나타납니다. 빚을 갚거나 수입이 생기기 시작합니다.",
             학업: "슬럼프를 극복하고 다시 학습 환경이 좋아집니다. 성적이 반등하기 시작합니다."
+        },
+        meanings_en: {
+            General: "A difficult challenge is ahead. Don't suffer alone—reach out and ask the people around you for help.",
+            Love: "Hardship endured together deepens the love, or economic difficulties are placing real strain on the relationship.",
+            Money: "A period of serious financial hardship. Cut every unnecessary expense to zero and simply endure.",
+            Career: "Your study environment may deteriorate or grades may drop sharply. Mental fortitude is the ultimate answer."
+        },
+        meanings_rev_en: {
+            General: "Light appears at the end of a long tunnel. Both economic and emotional recovery is beginning.",
+            Love: "A difficult situation resolves and stability returns. You finally have the breathing room to enjoy dates again.",
+            Money: "A benefactor who can provide financial help appears. Paying off debt or generating income begins.",
+            Career: "The slump is overcome and the learning environment improves again. Grades begin their rebound."
         }
     },
     {
@@ -93,6 +153,18 @@ const pentacleCards = [
             연애: "사랑을 보상으로 생각하거나 계산적인 태도를 보여 상대가 상처받을 수 있습니다.",
             금전: "사기를 당하거나 빌려준 돈을 받지 못할 수 있습니다. 금전 거래에 신중하세요.",
             학업: "노력에 비해 보상이 적습니다. 자신의 성과를 남에게 뺏기지 않도록 주의하세요."
+        },
+        meanings_en: {
+            General: "The virtue of giving and sharing is called for now. What you give will return to you generously.",
+            Love: "One person may be giving more than the other in an unbalanced love, yet both feel a measure of satisfaction.",
+            Money: "Money owed to you returns, or a loan is repaid. There is also a chance of receiving financial assistance.",
+            Career: "You contribute your talents to others or receive valuable guidance from a senior. Sharing knowledge is the key theme."
+        },
+        meanings_rev_en: {
+            General: "Unfair treatment or a selfish attitude creates conflict. Seek a fair and balanced equilibrium.",
+            Love: "Viewing love as a transaction or acting with calculated motives will cause your partner genuine pain.",
+            Money: "You may be scammed or unable to recover money you lent. Exercise extreme caution in all financial dealings.",
+            Career: "Your efforts bring fewer rewards than they deserve. Be careful that others don't take credit for your work."
         }
     },
     {
@@ -109,6 +181,18 @@ const pentacleCards = [
             연애: "오랜 노력에도 관계에 진전이 없어 지치게 됩니다. 미련을 버려야 할 수도 있습니다.",
             금전: "투자가 무산되거나 기대했던 수익이 전혀 없을 수 있습니다. 손절을 고민해 보세요.",
             학업: "공부 방식이 비효율적입니다. 시간만 투자하고 결과는 안 나오는 상태입니다."
+        },
+        meanings_en: {
+            General: "A mid-point review is needed. Take a step back and assess whether all your effort is on the right track.",
+            Love: "You have entered the mature stage of thoughtfully considering how to take the relationship to the next level.",
+            Money: "You are waiting for the results of an investment to arrive. Remain patient—the harvest will come if you don't rush.",
+            Career: "Audit the volume of your study and identify where the gaps are. Deep inner substance matters more than today's grades."
+        },
+        meanings_rev_en: {
+            General: "A lack of results despite all the effort brings a hollow sense of defeat. The direction chosen may be wrong.",
+            Love: "Long efforts with no real progress in the relationship lead to exhaustion. You may need to let go of some hope.",
+            Money: "An investment falls through or the expected returns simply do not materialize. Consider the possibility of cutting losses.",
+            Career: "The study method is deeply inefficient. Time is being invested but results refuse to follow."
         }
     },
     {
@@ -125,6 +209,18 @@ const pentacleCards = [
             연애: "연애가 너무 일상적이고 지루해집니다. 노력이 부족해 관계가 소원해질 수 있습니다.",
             금전: "잔재주를 부리다 오히려 손해를 봅니다. 일확천금을 노리는 투자는 실패합니다.",
             학업: "학습 의욕이 떨어지고 벼락치기에 의존하려 합니다. 성적이 떨어질 징조입니다."
+        },
+        meanings_en: {
+            General: "A time that calls for diligence and the spirit of a true craftsperson. Steadfast repetition will make you a master.",
+            Love: "A loyal, steady love. The relationship may not be glamorous, but it is sincerely devoted and carefully tended.",
+            Money: "Honest, hard-earned income flows in reliably. Fixed savings and consistent deposits are strongly favored.",
+            Career: "This is the time to study with raw persistence and endurance. Consistent, repetitive learning will guarantee success."
+        },
+        meanings_rev_en: {
+            General: "Boredom sets in and concentration frays at the edges. Mistakes are multiplying—go back to first principles.",
+            Love: "The relationship has become too routine and dull. Neglected effort is allowing distance to grow between you.",
+            Money: "Clever shortcuts lead to losses instead. A get-rich-quick investment scheme will fail.",
+            Career: "The will to study is fading and cramming at the last moment is becoming the fallback. Grades are about to slide."
         }
     },
     {
@@ -141,6 +237,18 @@ const pentacleCards = [
             연애: "상대의 재력이나 조건만 보고 있지는 않나요? 진실한 마음이 빠져있을 수 있습니다.",
             금전: "감당할 수 없는 과시용 지출로 재정이 위태롭습니다. 품위 유지를 위해 빚을 지지 마세요.",
             학업: "성적에 자만하여 노력을 멈춥니다. 겉핥기식 공부는 결국 밑천이 드러납니다."
+        },
+        meanings_en: {
+            General: "A time of profound material and spiritual abundance. Enjoy the success you have built entirely by yourself.",
+            Love: "You are confident and joyful even alone. If in a relationship, it is graceful, relaxed, and full of quiet elegance.",
+            Money: "Financial fortune is at its absolute peak. Stable income and comfortable surplus allow for a truly refined lifestyle.",
+            Career: "Your results are outstanding and set you apart from the rest. Studying alone is vastly more efficient, and your grades soar."
+        },
+        meanings_rev_en: {
+            General: "You may be preoccupied with appearances while the inside feels empty. Guard against vanity and extravagance.",
+            Love: "Are you evaluating your partner solely on material terms or external conditions? True affection may be absent.",
+            Money: "Showy spending beyond your means is putting your finances in real jeopardy. Never go into debt for the sake of image.",
+            Career: "Pride in your grades causes you to stop making effort. Surface-level study will eventually be exposed as shallow."
         }
     },
     {
@@ -157,6 +265,18 @@ const pentacleCards = [
             연애: "집안의 반대로 관계가 힘들어질 수 있습니다. 현실적인 벽이 높게 느껴집니다.",
             금전: "가족 관련 일로 큰돈이 나가거나 재산을 잃을 수 있습니다. 투명한 관리가 필요합니다.",
             학업: "주변의 기대가 너무 커서 부담감에 성적이 떨어집니다. 부담감을 털어내야 합니다."
+        },
+        meanings_en: {
+            General: "A symbol of family legacy and accumulated wealth. A time of enjoying long-standing tradition and deep stability.",
+            Love: "Marriage or a family union—a profoundly stable relationship. This is a truly blessed love.",
+            Money: "An inheritance or significant real estate fortune is indicated. Your financial foundation becomes rock-solid.",
+            Career: "You gain admission to a prestigious institution or receive full financial support from your family to pursue your studies."
+        },
+        meanings_rev_en: {
+            General: "Family conflict or a dispute over inheritance may arise. The signs of a cherished tradition beginning to erode.",
+            Love: "Family opposition may make the relationship extremely difficult. The practical walls feel very high.",
+            Money: "Family-related issues may cause a large financial outflow or lead to asset loss. Transparent management is essential.",
+            Career: "The weight of others' sky-high expectations is crushing your performance. You must shed that burden."
         }
     },
     {
@@ -173,6 +293,18 @@ const pentacleCards = [
             연애: "상대에게 너무 현실적인 잣대만 들이대고 있지는 않나요? 로맨스가 부족합니다.",
             금전: "푼돈을 아끼려다 큰돈을 잃을 수 있습니다. 돈 관리에 있어 시야가 좁아진 상태입니다.",
             학업: "공부에 집중하지 못하고 딴생각이 많습니다. 실천 없는 계획은 시간 낭비입니다."
+        },
+        meanings_en: {
+            General: "Practical and diligent news is arriving. Fortune is extremely favorable for new learning and fresh beginnings.",
+            Love: "A careful and serious start. You encounter a reliable, trustworthy person rather than a flashy, exciting one.",
+            Money: "Small financial gains appear or it is an excellent time to begin saving. A genuine instinct for money is awakening.",
+            Career: "Your academic drive is burning intensely. This is the best possible moment to lay down solid, careful foundations."
+        },
+        meanings_rev_en: {
+            General: "Insufficient practical sense causes plans to fall apart. Laziness and irresponsibility are creeping in and must be addressed.",
+            Love: "Are you applying too strictly practical a standard to your partner? The relationship is suffering from a lack of romance.",
+            Money: "Trying to save small amounts may cost you larger ones. A narrow perspective is limiting your financial vision.",
+            Career: "You cannot focus on studying and your mind keeps wandering elsewhere. Planning without action is simply a waste of time."
         }
     },
     {
@@ -189,6 +321,18 @@ const pentacleCards = [
             연애: "관계가 너무 고리타분하고 재미없게 느껴집니다. 변화를 주지 않으면 권태기가 옵니다.",
             금전: "융통성 없는 자금 운영으로 기회를 놓칩니다. 돈이 묶여서 흐르지 않는 상태입니다.",
             학업: "공부 방식이 너무 낡았습니다. 효율성이 떨어지니 새로운 학습 도구를 사용해 보세요."
+        },
+        meanings_en: {
+            General: "The most trustworthy and diligent of all knights. Even moving as slowly as a tortoise, success is certain.",
+            Love: "A steadfast, unwavering love like a sunflower. The pace may be slow, but it is the safest romance there is.",
+            Money: "A stable income arrives steadily and reliably. Conservative, safe investment approaches are always the right answer.",
+            Career: "Steady, repetitive study becomes your true ability. The hours spent sitting quietly at your desk are what create success."
+        },
+        meanings_rev_en: {
+            General: "You are refusing change and remaining completely static. An overly conservative attitude is blocking your growth.",
+            Love: "The relationship has become too set in its ways and feels utterly dull. Without introducing change, stagnation will set in.",
+            Money: "Inflexible asset management causes you to miss key opportunities. Money is frozen solid and refusing to flow.",
+            Career: "Your study methods have become outdated. Efficiency is dropping sharply—it is time to adopt new learning tools."
         }
     },
     {
@@ -205,6 +349,18 @@ const pentacleCards = [
             연애: "질투심이 강해지고 상대를 구속하려 할 수 있습니다. 마음의 너그러움이 필요합니다.",
             금전: "불필요한 쇼핑이나 겉치레로 돈이 샙니다. 관리 부족으로 자산이 줄어들 수 있습니다.",
             학업: "불안한 마음에 공부가 손에 안 잡힙니다. 주변 환경 정리부터 시작하세요."
+        },
+        meanings_en: {
+            General: "A practical and nurturing supporter. It is time to tend to those around you and focus on building real inner substance.",
+            Love: "A devoted and homemaking love. Your ability to put your partner completely at ease is your most attractive quality.",
+            Money: "You manage every household expense with meticulous precision and grow your assets steadily. Frugal abundance is flourishing.",
+            Career: "Grades improve in a calm and stable environment. Practical certification studies are especially well-favored."
+        },
+        meanings_rev_en: {
+            General: "You may be neglecting self-care or becoming overly suspicious and mistrustful. Don't be so stingy with those around you.",
+            Love: "Jealousy intensifies and the urge to control your partner grows. Your heart urgently needs to become more generous.",
+            Money: "Unnecessary shopping or excessive attention to appearances is draining money. Poor management is causing assets to shrink.",
+            Career: "An unsettled state of mind is making it impossible to study. Begin by organizing and tidying your immediate environment."
         }
     },
     {
@@ -221,6 +377,18 @@ const pentacleCards = [
             연애: "사랑을 돈으로 사려 하거나 권위적으로 행동합니다. 상대는 마음을 닫게 됩니다.",
             금전: "무리한 욕심으로 큰 자산을 잃을 수 있습니다. 부정한 거래는 반드시 탄로 납니다.",
             학업: "성적이 잘 나온다고 자만하지 마세요. 실무 능력 없는 지식은 곧 한계를 맞습니다."
+        },
+        meanings_en: {
+            General: "The very symbol of success and wealth. The ultimate state of holding both genuine authority and complete stability.",
+            Love: "A love with a reliable, financially capable partner. You experience the deepest possible sense of security.",
+            Money: "Remarkable business success and substantial profit follow. Every single investment you make produces a genuine harvest.",
+            Career: "You achieve complete mastery over your academic goals. Business, economics, and law—practical disciplines—are your domain."
+        },
+        meanings_rev_en: {
+            General: "A corrupt or greedy attitude will invite disaster. Don't be blinded by money and lose sight of what truly matters.",
+            Love: "You may be trying to buy love or acting with unwarranted authority. Your partner's heart will close against you.",
+            Money: "Excessive greed may cause the loss of major assets. Dishonest dealings will always come to light in the end.",
+            Career: "Do not become complacent just because your grades are good. Knowledge without practical ability will soon hit its limit."
         }
     }
 ];
