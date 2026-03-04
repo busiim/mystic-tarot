@@ -85,9 +85,8 @@ function applyStrings() {
         currentCategoryTitle = cat.title;
         document.getElementById('dynamic-title').innerText = cat.title;
 
-        // 결과 오버레이가 열려 있으면 의미 텍스트도 즉시 재번역
-        const overlay = document.getElementById('result-overlay');
-        if (!overlay.classList.contains('hidden') && currentCard) {
+        // 카드가 뽑혀 있으면 오버레이 상태와 무관하게 항상 재번역
+        if (currentCard) {
             document.getElementById('card-meaning').innerText = getMeaning(currentCard, currentIsReverse);
             document.getElementById('result-title').innerText = `${cat.title}${s.adviceSuffix}`;
         }
@@ -100,6 +99,7 @@ const TarotAudio = {
     ambientOscs: null,
     ambientLfo:  null,
     ambientLfo2: null,
+    ambientLfo3: null,
     ambientGain: null,
 
     init() {
@@ -160,6 +160,15 @@ const TarotAudio = {
         lfo2Gain.connect(this.ambientOscs[5].frequency); // A4
         this.ambientLfo2.start();
 
+        // LFO3: 트레몰로 (2Hz) — 전체 볼륨에 부드러운 맥동 (바이브레이션 효과)
+        this.ambientLfo3 = this.ctx.createOscillator();
+        const lfo3Gain   = this.ctx.createGain();
+        this.ambientLfo3.frequency.value = 2;
+        lfo3Gain.gain.value = 0.022;
+        this.ambientLfo3.connect(lfo3Gain);
+        lfo3Gain.connect(master.gain);
+        this.ambientLfo3.start();
+
         this.ambientGain = master;
     },
 
@@ -173,9 +182,11 @@ const TarotAudio = {
             if (this.ambientOscs)  this.ambientOscs.forEach(o => { try { o.stop(); } catch(e) {} });
             if (this.ambientLfo)   { try { this.ambientLfo.stop();  } catch(e) {} }
             if (this.ambientLfo2)  { try { this.ambientLfo2.stop(); } catch(e) {} }
+            if (this.ambientLfo3)  { try { this.ambientLfo3.stop(); } catch(e) {} }
             this.ambientOscs = null;
             this.ambientLfo  = null;
             this.ambientLfo2 = null;
+            this.ambientLfo3 = null;
             this.ambientGain = null;
         }, 3000);
     },
