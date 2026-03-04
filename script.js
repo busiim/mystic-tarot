@@ -99,6 +99,7 @@ const TarotAudio = {
     ctx: null,
     ambientOscs: null,
     ambientLfo:  null,
+    ambientLfo2: null,
     ambientGain: null,
 
     init() {
@@ -107,38 +108,57 @@ const TarotAudio = {
         }
     },
 
-    // ── 배경 음악: A 단조 앰비언트 드론 ────────────────────────────────────────
+    // ── 배경 음악: 티베트 명상 드론 ─────────────────────────────────────────────
     playAmbient() {
         this.init();
-        if (this.ambientGain) return; // 이미 재생 중
+        if (this.ambientGain) return;
 
         const master = this.ctx.createGain();
         master.gain.setValueAtTime(0.001, this.ctx.currentTime);
-        master.gain.linearRampToValueAtTime(0.045, this.ctx.currentTime + 5);
+        master.gain.linearRampToValueAtTime(0.10, this.ctx.currentTime + 6);
         master.connect(this.ctx.destination);
 
-        // A 단조 배음 구조: A2 E3 A3 C4 E4
-        this.ambientOscs = [110, 164.8, 220, 261.6, 329.6].map((freq, i) => {
+        // 깊은 명상 드론 레이어 (낮은 배음 → 높은 shimmer)
+        // A1(55) · A2(110) · E3(165) · A3(220) · E4(330) · A4(440) · 528Hz(솔페지오)
+        const layers = [
+            { freq: 55,    vol: 0.32, type: 'sine'     },
+            { freq: 110,   vol: 0.26, type: 'sine'     },
+            { freq: 164.8, vol: 0.20, type: 'sine'     },
+            { freq: 220,   vol: 0.14, type: 'triangle' },
+            { freq: 329.6, vol: 0.08, type: 'sine'     },
+            { freq: 440,   vol: 0.05, type: 'sine'     },
+            { freq: 528,   vol: 0.03, type: 'sine'     },
+        ];
+        this.ambientOscs = layers.map(({ freq, vol, type }, i) => {
             const osc = this.ctx.createOscillator();
             const g   = this.ctx.createGain();
-            osc.type = 'sine';
+            osc.type = type;
             osc.frequency.value = freq;
-            osc.detune.value = (i % 2 === 0 ? 1 : -1) * (i + 1) * 1.5; // 미세 디튜닝
-            g.gain.value = 0.22 / 5;
+            osc.detune.value = (i % 2 === 0 ? 1 : -1) * (i + 1) * 1.2;
+            g.gain.value = vol;
             osc.connect(g);
             g.connect(master);
             osc.start();
             return osc;
         });
 
-        // 느린 LFO — 볼륨 미세 물결 효과
+        // LFO1: 매우 느린 숨결 (0.05Hz) — 볼륨 물결
         this.ambientLfo = this.ctx.createOscillator();
         const lfoGain   = this.ctx.createGain();
-        this.ambientLfo.frequency.value = 0.07;
-        lfoGain.gain.value = 0.007;
+        this.ambientLfo.frequency.value = 0.05;
+        lfoGain.gain.value = 0.018;
         this.ambientLfo.connect(lfoGain);
         lfoGain.connect(master.gain);
         this.ambientLfo.start();
+
+        // LFO2: shimmer (0.18Hz) — A4 오실레이터 주파수 미세 진동
+        this.ambientLfo2 = this.ctx.createOscillator();
+        const lfo2Gain   = this.ctx.createGain();
+        this.ambientLfo2.frequency.value = 0.18;
+        lfo2Gain.gain.value = 3;
+        this.ambientLfo2.connect(lfo2Gain);
+        lfo2Gain.connect(this.ambientOscs[5].frequency); // A4
+        this.ambientLfo2.start();
 
         this.ambientGain = master;
     },
@@ -150,10 +170,12 @@ const TarotAudio = {
         g.gain.setValueAtTime(g.gain.value, this.ctx.currentTime);
         g.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 2.5);
         setTimeout(() => {
-            if (this.ambientOscs) this.ambientOscs.forEach(o => { try { o.stop(); } catch(e) {} });
-            if (this.ambientLfo)  { try { this.ambientLfo.stop(); } catch(e) {} }
+            if (this.ambientOscs)  this.ambientOscs.forEach(o => { try { o.stop(); } catch(e) {} });
+            if (this.ambientLfo)   { try { this.ambientLfo.stop();  } catch(e) {} }
+            if (this.ambientLfo2)  { try { this.ambientLfo2.stop(); } catch(e) {} }
             this.ambientOscs = null;
             this.ambientLfo  = null;
+            this.ambientLfo2 = null;
             this.ambientGain = null;
         }, 3000);
     },
@@ -177,37 +199,41 @@ const TarotAudio = {
         });
     },
 
-    // ── 카드 뒤집기: 카드 넘기는 소리 + 피치 스윕 ────────────────────────────
+    // ── 카드 뒤집기: 신비로운 에너지 방출 + 크리스탈 차임 ────────────────────
     playFlip() {
         this.init();
 
-        // 화이트 노이즈 (종이 소리)
-        const bufferSize = this.ctx.sampleRate * 0.35;
+        // 밴드패스 노이즈 swoosh (짧고 날카로운 에너지감)
+        const bufferSize = this.ctx.sampleRate * 0.22;
         const buffer     = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data       = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-        const source  = this.ctx.createBufferSource();
+        const source = this.ctx.createBufferSource();
         source.buffer = buffer;
-        const lp = this.ctx.createBiquadFilter();
-        lp.type = 'lowpass';
-        lp.frequency.setValueAtTime(2500, this.ctx.currentTime);
-        lp.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.35);
+        const bp = this.ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.setValueAtTime(400, this.ctx.currentTime);
+        bp.frequency.exponentialRampToValueAtTime(3500, this.ctx.currentTime + 0.12);
+        bp.Q.value = 1.8;
         const ng = this.ctx.createGain();
-        ng.gain.setValueAtTime(0.22, this.ctx.currentTime);
-        ng.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
-        source.connect(lp); lp.connect(ng); ng.connect(this.ctx.destination);
+        ng.gain.setValueAtTime(0.28, this.ctx.currentTime);
+        ng.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+        source.connect(bp); bp.connect(ng); ng.connect(this.ctx.destination);
         source.start();
 
-        // 신비로운 하강 스윕
-        const osc     = this.ctx.createOscillator();
-        const oscGain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(900, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(220, this.ctx.currentTime + 0.45);
-        oscGain.gain.setValueAtTime(0.07, this.ctx.currentTime);
-        oscGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.45);
-        osc.connect(oscGain); oscGain.connect(this.ctx.destination);
-        osc.start(); osc.stop(this.ctx.currentTime + 0.45);
+        // 크리스탈 차임 3음 (C6·E6·G6 — 맑은 유리 종소리)
+        [1046.5, 1318.5, 1568].forEach((freq, i) => {
+            const t    = this.ctx.currentTime + 0.05 + i * 0.07;
+            const osc  = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.07, t + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            osc.start(t); osc.stop(t + 0.55);
+        });
     },
 
     // ── 결과 공개: C 장조 상승 아르페지오 ─────────────────────────────────────
