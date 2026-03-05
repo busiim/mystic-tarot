@@ -11,6 +11,17 @@ let currentCategoryTitle = '';
 let currentCategoryIndex = -1;
 let currentCard = null;
 let currentIsReverse = false;
+let soundEnabled = localStorage.getItem('tarot_sound') !== 'off';
+let fanCardEls = [];
+let fanIsShuffling = false;
+
+const FAN_POSITIONS = [
+    { rotate: -25, tx: -90, ty: 12 },
+    { rotate: -12, tx: -45, ty:  4 },
+    { rotate:   0, tx:   0, ty:  0 },
+    { rotate:  12, tx:  45, ty:  4 },
+    { rotate:  25, tx:  90, ty: 12 },
+];
 
 // ─── 언어 문자열 ────────────────────────────────────────────────────────────
 const strings = {
@@ -29,6 +40,11 @@ const strings = {
         adviceSuffix: '에 대한 조언',
         retryBtn: '카드 감상하기',
         resetBtn: '다시 시작하기',
+        fanPrompt: '카드를 선택하세요',
+        shuffleBtn: '🔀 셔플',
+        todayPanelTitle: '오늘의 타로',
+        todayViewBtn: '다시 보기',
+        todayGoBtn: '뽑으러 가기',
     },
     en: {
         mainTitle: 'What would you like to know?',
@@ -45,6 +61,11 @@ const strings = {
         adviceSuffix: ' Reading',
         retryBtn: 'View Card',
         resetBtn: 'Start Again',
+        fanPrompt: 'Choose your card',
+        shuffleBtn: '🔀 Shuffle',
+        todayPanelTitle: "Today's Tarot",
+        todayViewBtn: 'View Again',
+        todayGoBtn: 'Draw Card',
     }
 };
 
@@ -54,10 +75,18 @@ function toggleLang() {
     applyStrings();
 }
 
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('tarot_sound', soundEnabled ? 'on' : 'off');
+    document.getElementById('sound-toggle').innerText = soundEnabled ? '🔊' : '🔇';
+    if (!soundEnabled) TarotAudio.stopAmbient();
+}
+
 function applyStrings() {
     const s = strings[currentLang];
-    document.documentElement.lang = currentLang;  // Fix 2: html lang 속성 갱신
+    document.documentElement.lang = currentLang;
     document.getElementById('lang-toggle').innerText = currentLang === 'ko' ? 'EN' : 'KO';
+    document.getElementById('sound-toggle').innerText = soundEnabled ? '🔊' : '🔇';
     document.getElementById('main-title').innerText = s.mainTitle;
     document.getElementById('main-subtitle').innerText = s.mainSubtitle;
     document.getElementById('meditation-text').innerText = s.meditationText;
@@ -78,7 +107,16 @@ function applyStrings() {
     document.querySelector('.retry-btn').innerText = s.retryBtn;
     document.querySelector('.reset-btn').innerText = s.resetBtn;
 
-    // Fix 1: 카테고리 선택 후 언어 전환 시 갱신
+    // 팬 / 셔플 버튼 텍스트
+    const fanPromptEl = document.getElementById('fan-prompt');
+    if (fanPromptEl) fanPromptEl.innerText = s.fanPrompt;
+    const shuffleBtn = document.getElementById('shuffle-btn');
+    if (shuffleBtn) shuffleBtn.innerText = s.shuffleBtn;
+
+    // 오늘의 카드 패널 갱신
+    updateTodayPanel();
+
+    // 카테고리 선택 후 언어 전환 시 갱신
     if (currentCategoryIndex >= 0) {
         const cat = s.categories[currentCategoryIndex];
         currentCategoryKey   = cat.key;
@@ -247,21 +285,76 @@ const TarotAudio = {
         });
     },
 
-    // ── 결과 공개: C 장조 상승 아르페지오 ─────────────────────────────────────
+    // ── 카드 셔플: 카드 섞는 소리 (3회 스침) ─────────────────────────────────
+    playShuffle() {
+        this.init();
+        [0, 0.18, 0.36].forEach(offset => {
+            const t = this.ctx.currentTime + offset;
+            const bufSize = Math.floor(this.ctx.sampleRate * 0.11);
+            const buf  = this.ctx.createBuffer(1, bufSize, this.ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+            const src = this.ctx.createBufferSource();
+            src.buffer = buf;
+            const bp = this.ctx.createBiquadFilter();
+            bp.type = 'bandpass';
+            bp.frequency.value = 1800;
+            bp.Q.value = 1.2;
+            const g = this.ctx.createGain();
+            g.gain.setValueAtTime(0.18, t);
+            g.gain.exponentialRampToValueAtTime(0.001, t + 0.11);
+            src.connect(bp); bp.connect(g); g.connect(this.ctx.destination);
+            src.start(t);
+        });
+    },
+
+    // ── 결과 공개: 신비로운 A 단조 스웰 ──────────────────────────────────────
     playResult() {
         this.init();
-        [261.6, 329.6, 392, 523.3].forEach((freq, i) => {
-            const t    = this.ctx.currentTime + i * 0.14;
+        const now = this.ctx.currentTime;
+
+        // 깊은 기저 울림 (E2)
+        const bass     = this.ctx.createOscillator();
+        const bassGain = this.ctx.createGain();
+        bass.type = 'sine';
+        bass.frequency.value = 82.4;
+        bassGain.gain.setValueAtTime(0, now);
+        bassGain.gain.linearRampToValueAtTime(0.09, now + 0.7);
+        bassGain.gain.exponentialRampToValueAtTime(0.001, now + 3.0);
+        bass.connect(bassGain); bassGain.connect(this.ctx.destination);
+        bass.start(now); bass.stop(now + 3.0);
+
+        // A 단조 화음이 천천히 스며들며 공개 (A3·C4·E4)
+        [220, 261.6, 329.6].forEach((freq, i) => {
+            const t    = now + i * 0.25;
             const osc  = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
-            osc.type = 'triangle';
+            osc.type = 'sine';
             osc.frequency.value = freq;
             gain.gain.setValueAtTime(0, t);
-            gain.gain.linearRampToValueAtTime(0.08, t + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 1.6);
+            gain.gain.linearRampToValueAtTime(0.06, t + 0.45);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 3.0);
             osc.connect(gain); gain.connect(this.ctx.destination);
-            osc.start(t); osc.stop(t + 1.6);
+            osc.start(t); osc.stop(t + 3.0);
         });
+
+        // 높은 에테르 shimmer (A5) — 천천히 피어남
+        const shimmer     = this.ctx.createOscillator();
+        const shimmerGain = this.ctx.createGain();
+        const shimmerLfo  = this.ctx.createOscillator();
+        const lfoGain     = this.ctx.createGain();
+        shimmer.type = 'sine';
+        shimmer.frequency.value = 880;
+        shimmerLfo.frequency.value = 4;   // 느린 비브라토
+        lfoGain.gain.value = 2.5;
+        shimmerLfo.connect(lfoGain);
+        lfoGain.connect(shimmer.frequency);
+        shimmerGain.gain.setValueAtTime(0, now + 0.6);
+        shimmerGain.gain.linearRampToValueAtTime(0.04, now + 1.2);
+        shimmerGain.gain.exponentialRampToValueAtTime(0.001, now + 3.5);
+        shimmer.connect(shimmerGain); shimmerGain.connect(this.ctx.destination);
+        shimmerLfo.start(now + 0.6); shimmer.start(now + 0.6);
+        shimmerLfo.stop(now + 3.5);  shimmer.stop(now + 3.5);
     }
 };
 
@@ -292,8 +385,8 @@ function selectCategory(index) {
     currentCategoryKey   = cat.key;
     currentCategoryTitle = cat.title;
 
-    TarotAudio.playSelect();
-    TarotAudio.playAmbient();
+    if (soundEnabled) TarotAudio.playSelect();
+    if (soundEnabled) TarotAudio.playAmbient();
     triggerHaptic('medium');
 
     document.getElementById('category-screen').classList.add('hidden');
@@ -303,16 +396,18 @@ function selectCategory(index) {
 
     setTimeout(() => {
         medScreen.classList.add('hidden');
-        const mainApp = document.getElementById('main-app');
-        mainApp.classList.remove('hidden');
+        document.getElementById('main-app').classList.remove('hidden');
         document.getElementById('dynamic-title').innerText = currentCategoryTitle;
+        document.getElementById('fan-phase').classList.remove('hidden');
+        document.getElementById('reveal-phase').classList.add('hidden');
+        createFanCards();
     }, 3500);
 }
 
 // ─── 2단계: 카드 클릭 핸들러 ──────────────────────────────────────────────────
 function handleCardClick() {
     if (!isFlipped) {
-        TarotAudio.playFlip();
+        if (soundEnabled) TarotAudio.playFlip();
         triggerHaptic('light');
         drawNewCard();
     } else {
@@ -325,6 +420,7 @@ function drawNewCard() {
     const allCards = [...majorCards, ...cupCards, ...swordCards, ...wandCards, ...pentacleCards];
     currentCard      = allCards[Math.floor(Math.random() * allCards.length)];
     currentIsReverse = Math.random() > 0.5;
+    saveTodayCard();
     updateUI({ name: currentCard.name, img: currentCard.img, meaning: getMeaning(currentCard, currentIsReverse), isReverse: currentIsReverse });
 }
 
@@ -355,7 +451,8 @@ function updateUI(result) {
     isFlipped = true;
 
     setTimeout(() => {
-        TarotAudio.playResult();
+        spawnParticles();
+        if (soundEnabled) TarotAudio.playResult();
         triggerHaptic('medium');
         showOverlay();
     }, 1000);
@@ -391,6 +488,9 @@ function startAgain() {
 
     document.getElementById('main-app').classList.add('hidden');
 
+    fanCardEls = [];
+    fanIsShuffling = false;
+
     const cardElement = document.getElementById('tarot-card');
     cardElement.classList.remove('is-flipped');
     cardElement.classList.remove('reverse');
@@ -398,7 +498,196 @@ function startAgain() {
     setTimeout(() => {
         overlay.classList.add('hidden');
         document.getElementById('category-screen').classList.remove('hidden');
+        updateTodayPanel();
     }, 400);
+}
+
+// ─── 오늘의 카드 (카테고리별) ─────────────────────────────────────────────────
+function saveTodayCard() {
+    if (!currentCard || currentCategoryIndex < 0) return;
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem(`tarot_today_${currentCategoryIndex}`, JSON.stringify({
+        date: today,
+        cardName: currentCard.name,
+        cardImg: currentCard.img,
+        isReverse: currentIsReverse,
+        categoryIndex: currentCategoryIndex,
+    }));
+}
+
+function loadTodayCardForCategory(catIndex) {
+    const saved = localStorage.getItem(`tarot_today_${catIndex}`);
+    if (!saved) return null;
+    const data = JSON.parse(saved);
+    const today = new Date().toISOString().split('T')[0];
+    return data.date === today ? data : null;
+}
+
+function updateTodayPanel() {
+    const s = strings[currentLang];
+    const grid = document.getElementById('today-grid');
+    const titleEl = document.getElementById('today-panel-title');
+    if (!grid || !titleEl) return;
+    titleEl.innerText = s.todayPanelTitle;
+    grid.innerHTML = '';
+
+    s.categories.forEach((cat, i) => {
+        const data = loadTodayCardForCategory(i);
+        const slot = document.createElement('div');
+        slot.className = 'today-slot';
+
+        if (data) {
+            const revClass = data.isReverse ? ' reversed' : '';
+            slot.innerHTML = `
+                <div class="today-slot-cat">${cat.label}</div>
+                <img class="today-slot-thumb${revClass}" src="${data.cardImg}" alt="${data.cardName}"
+                     onclick="viewTodayCard(${i})">
+                <button class="today-view-btn" onclick="viewTodayCard(${i})">${s.todayViewBtn}</button>`;
+        } else {
+            slot.innerHTML = `
+                <div class="today-slot-cat">${cat.label}</div>
+                <div class="today-slot-empty">✦</div>
+                <button class="today-go-btn" onclick="selectCategory(${i})">${s.todayGoBtn}</button>`;
+        }
+        grid.appendChild(slot);
+    });
+}
+
+function viewTodayCard(catIndex) {
+    const data = loadTodayCardForCategory(catIndex);
+    if (!data) return;
+    const allCards = [...majorCards, ...cupCards, ...swordCards, ...wandCards, ...pentacleCards];
+    const card = allCards.find(c => c.name === data.cardName);
+    if (!card) return;
+
+    currentCategoryIndex = data.categoryIndex;
+    const cat = strings[currentLang].categories[data.categoryIndex];
+    currentCategoryKey   = cat.key;
+    currentCategoryTitle = cat.title;
+    currentCard      = card;
+    currentIsReverse = data.isReverse;
+
+    if (soundEnabled) TarotAudio.playAmbient();
+
+    document.getElementById('category-screen').classList.add('hidden');
+    document.getElementById('main-app').classList.remove('hidden');
+    document.getElementById('fan-phase').classList.add('hidden');
+    document.getElementById('reveal-phase').classList.remove('hidden');
+    document.getElementById('dynamic-title').innerText = currentCategoryTitle;
+
+    updateUI({ name: card.name, img: card.img, meaning: getMeaning(card, data.isReverse), isReverse: data.isReverse });
+}
+
+// ─── 팬 카드 셔플 & 선택 ──────────────────────────────────────────────────────
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function createFanCards() {
+    const container = document.getElementById('fan-container');
+    container.innerHTML = '';
+    fanCardEls = [];
+    fanIsShuffling = false;
+
+    for (let i = 0; i < 5; i++) {
+        const card = document.createElement('div');
+        card.className = 'fan-card';
+        card.style.transform = 'rotate(0deg) translateX(0px) translateY(0px)';
+        card.style.zIndex = i;
+        card.onclick = () => pickFanCard(i);
+        container.appendChild(card);
+        fanCardEls.push(card);
+    }
+    // Fan out after brief stacking delay
+    setTimeout(() => spreadFan(), 200);
+}
+
+function spreadFan(positions) {
+    const pos = positions || FAN_POSITIONS;
+    fanCardEls.forEach((card, i) => {
+        const p = pos[i];
+        card.style.transitionDelay = `${i * 0.05}s`;
+        card.style.transform = `rotate(${p.rotate}deg) translateX(${p.tx}px) translateY(${p.ty}px)`;
+        card.style.zIndex = i;
+    });
+    setTimeout(() => fanCardEls.forEach(c => { c.style.transitionDelay = '0s'; }), 600);
+}
+
+function shuffleCard() {
+    if (fanIsShuffling) return;
+    fanIsShuffling = true;
+    if (soundEnabled) TarotAudio.playShuffle();
+    triggerHaptic('light');
+
+    // 1. 중앙으로 모으기
+    fanCardEls.forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.03}s`;
+        card.style.transform = `rotate(${(Math.random() - 0.5) * 8}deg) translateX(0px) translateY(0px)`;
+    });
+    // 2. 살짝 흔들기
+    setTimeout(() => {
+        fanCardEls.forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.04}s`;
+            card.style.transform = `rotate(${(Math.random() - 0.5) * 18}deg) translateX(${(Math.random() - 0.5) * 22}px) translateY(${Math.random() * -10}px)`;
+        });
+    }, 360);
+    // 3. 새 순서로 펼치기
+    setTimeout(() => {
+        fanCardEls.forEach(c => { c.style.transitionDelay = '0s'; });
+        const shuffled = shuffleArray([...FAN_POSITIONS]);
+        spreadFan(shuffled);
+        setTimeout(() => { fanIsShuffling = false; }, 700);
+    }, 700);
+}
+
+function pickFanCard(index) {
+    if (fanIsShuffling) return;
+    triggerHaptic('medium');
+
+    // 선택된 카드 강조, 나머지 퇴장
+    fanCardEls[index].style.transform = 'rotate(0deg) translateX(0px) translateY(-30px)';
+    fanCardEls[index].style.boxShadow = '0 0 40px rgba(212, 175, 55, 0.5)';
+    fanCardEls[index].style.borderColor = 'rgba(212, 175, 55, 0.9)';
+    fanCardEls.forEach((card, i) => {
+        if (i !== index) card.classList.add('dismissed');
+    });
+
+    // 공개 단계로 전환
+    setTimeout(() => {
+        document.getElementById('fan-phase').classList.add('hidden');
+        document.getElementById('reveal-phase').classList.remove('hidden');
+        setTimeout(() => {
+            if (soundEnabled) TarotAudio.playFlip();
+            drawNewCard();
+        }, 250);
+    }, 600);
+}
+
+// ─── 파티클 이펙트 ────────────────────────────────────────────────────────────
+function spawnParticles() {
+    const card = document.getElementById('tarot-card');
+    const rect = card.getBoundingClientRect();
+    const cx = rect.left + rect.width  / 2;
+    const cy = rect.top  + rect.height / 2;
+    const count = 28;
+
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        const angle = (i / count) * 360 + Math.random() * 10;
+        const dist  = 70 + Math.random() * 130;
+        const px    = Math.cos(angle * Math.PI / 180) * dist;
+        const py    = Math.sin(angle * Math.PI / 180) * dist;
+        const size  = 3 + Math.random() * 6;
+        const dur   = 0.6 + Math.random() * 0.6;
+        p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;--px:${px}px;--py:${py}px;--dur:${dur}s;`;
+        document.body.appendChild(p);
+        p.addEventListener('animationend', () => p.remove(), { once: true });
+    }
 }
 
 // ─── 초기 실행 ────────────────────────────────────────────────────────────────

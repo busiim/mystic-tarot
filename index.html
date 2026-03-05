@@ -13,6 +13,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
+    <button id="sound-toggle" onclick="toggleSound()">🔊</button>
     <button id="lang-toggle" onclick="toggleLang()">EN</button>
 
     <div class="mystic-bg">
@@ -27,6 +28,10 @@
         </header>
         <div class="category-grid">
             <!-- Populated by applyStrings() -->
+        </div>
+        <div id="today-panel">
+            <h3 id="today-panel-title"></h3>
+            <div class="today-grid" id="today-grid"></div>
         </div>
     </div>
 
@@ -46,24 +51,36 @@
             <p id="card-subtitle" class="subtitle">신중하게 카드를 터치하여 운명을 확인하세요.</p>
         </header>
 
-        <main class="scene">
-            <div class="card" id="tarot-card" onclick="handleCardClick()">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div class="mystic-circle"></div>
-                    </div>
-                    <div class="card-back" id="capture-area">
-                        <div id="card-image-placeholder"></div>
-                        <div class="card-info-area">
-                            <h2 id="card-name">CARD NAME</h2>
-                            <div id="direction-badge">
-                                <span id="card-direction">READY</span>
+        <!-- 단계 1: 카드 팬 선택 -->
+        <div id="fan-phase">
+            <p id="fan-prompt"></p>
+            <div id="fan-container"></div>
+            <div id="fan-controls">
+                <button id="shuffle-btn" onclick="shuffleCard()"></button>
+            </div>
+        </div>
+
+        <!-- 단계 2: 카드 공개 -->
+        <div id="reveal-phase" class="hidden">
+            <main class="scene">
+                <div class="card" id="tarot-card" onclick="handleCardClick()">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="mystic-circle"></div>
+                        </div>
+                        <div class="card-back" id="capture-area">
+                            <div id="card-image-placeholder"></div>
+                            <div class="card-info-area">
+                                <h2 id="card-name">CARD NAME</h2>
+                                <div id="direction-badge">
+                                    <span id="card-direction">READY</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 
     <div id="result-overlay" class="hidden">
