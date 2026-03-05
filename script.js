@@ -42,6 +42,7 @@ const strings = {
         resetBtn: '다시 시작하기',
         fanPrompt: '카드를 선택하세요',
         shuffleBtn: '🔀 셔플',
+        todayToggleBtn: '📅 오늘의 타로 보기',
         todayPanelTitle: '오늘의 타로',
         todayViewBtn: '다시 보기',
         todayGoBtn: '뽑으러 가기',
@@ -63,6 +64,7 @@ const strings = {
         resetBtn: 'Start Again',
         fanPrompt: 'Choose your card',
         shuffleBtn: '🔀 Shuffle',
+        todayToggleBtn: "📅 View Today's Tarot",
         todayPanelTitle: "Today's Tarot",
         todayViewBtn: 'View Again',
         todayGoBtn: 'Draw Card',
@@ -107,14 +109,15 @@ function applyStrings() {
     document.querySelector('.retry-btn').innerText = s.retryBtn;
     document.querySelector('.reset-btn').innerText = s.resetBtn;
 
+    // 오늘의 타로 토글 버튼
+    const todayToggleBtn = document.getElementById('today-toggle-btn');
+    if (todayToggleBtn) todayToggleBtn.innerText = s.todayToggleBtn;
+
     // 팬 / 셔플 버튼 텍스트
     const fanPromptEl = document.getElementById('fan-prompt');
     if (fanPromptEl) fanPromptEl.innerText = s.fanPrompt;
     const shuffleBtn = document.getElementById('shuffle-btn');
     if (shuffleBtn) shuffleBtn.innerText = s.shuffleBtn;
-
-    // 오늘의 카드 패널 갱신
-    updateTodayPanel();
 
     // 카테고리 선택 후 언어 전환 시 갱신
     if (currentCategoryIndex >= 0) {
@@ -498,7 +501,6 @@ function startAgain() {
     setTimeout(() => {
         overlay.classList.add('hidden');
         document.getElementById('category-screen').classList.remove('hidden');
-        updateTodayPanel();
     }, 400);
 }
 
@@ -523,33 +525,61 @@ function loadTodayCardForCategory(catIndex) {
     return data.date === today ? data : null;
 }
 
+function toggleTodayPanel() {
+    const modal = document.getElementById('today-modal');
+    if (modal.classList.contains('hidden')) {
+        updateTodayPanel();
+        modal.classList.remove('hidden');
+        void modal.offsetWidth;
+        modal.classList.add('show');
+    } else {
+        modal.classList.remove('show');
+        setTimeout(() => modal.classList.add('hidden'), 320);
+    }
+}
+
 function updateTodayPanel() {
     const s = strings[currentLang];
     const grid = document.getElementById('today-grid');
-    const titleEl = document.getElementById('today-panel-title');
+    const titleEl = document.getElementById('today-modal-title');
     if (!grid || !titleEl) return;
     titleEl.innerText = s.todayPanelTitle;
     grid.innerHTML = '';
 
+    const allCards = [...majorCards, ...cupCards, ...swordCards, ...wandCards, ...pentacleCards];
+
     s.categories.forEach((cat, i) => {
         const data = loadTodayCardForCategory(i);
-        const slot = document.createElement('div');
-        slot.className = 'today-slot';
+        const entry = document.createElement('div');
+        entry.className = 'today-entry';
 
         if (data) {
+            const card = allCards.find(c => c.name === data.cardName);
             const revClass = data.isReverse ? ' reversed' : '';
-            slot.innerHTML = `
-                <div class="today-slot-cat">${cat.label}</div>
-                <img class="today-slot-thumb${revClass}" src="${data.cardImg}" alt="${data.cardName}"
-                     onclick="viewTodayCard(${i})">
-                <button class="today-view-btn" onclick="viewTodayCard(${i})">${s.todayViewBtn}</button>`;
+            let meaning = '';
+            if (card) {
+                const savedKey = currentCategoryKey;
+                currentCategoryKey = cat.key;
+                meaning = getMeaning(card, data.isReverse);
+                currentCategoryKey = savedKey;
+            }
+            entry.innerHTML = `
+                <div class="today-entry-header">
+                    <div class="today-entry-cat">${cat.label}</div>
+                    <img class="today-entry-thumb${revClass}" src="${data.cardImg}" alt="${data.cardName}"
+                         onclick="viewTodayCard(${i}); toggleTodayPanel();">
+                </div>
+                <p class="today-entry-meaning">${meaning}</p>
+                <button class="today-view-btn" onclick="viewTodayCard(${i}); toggleTodayPanel();">${s.todayViewBtn}</button>`;
         } else {
-            slot.innerHTML = `
-                <div class="today-slot-cat">${cat.label}</div>
-                <div class="today-slot-empty">✦</div>
-                <button class="today-go-btn" onclick="selectCategory(${i})">${s.todayGoBtn}</button>`;
+            entry.innerHTML = `
+                <div class="today-entry-header">
+                    <div class="today-entry-cat">${cat.label}</div>
+                    <div class="today-entry-empty">✦</div>
+                </div>
+                <button class="today-go-btn" onclick="toggleTodayPanel(); selectCategory(${i});">${s.todayGoBtn}</button>`;
         }
-        grid.appendChild(slot);
+        grid.appendChild(entry);
     });
 }
 

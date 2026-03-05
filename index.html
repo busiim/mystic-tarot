@@ -29,10 +29,7 @@
         <div class="category-grid">
             <!-- Populated by applyStrings() -->
         </div>
-        <div id="today-panel">
-            <h3 id="today-panel-title"></h3>
-            <div class="today-grid" id="today-grid"></div>
-        </div>
+        <button id="today-toggle-btn" onclick="toggleTodayPanel()"></button>
     </div>
 
     <div id="meditation-screen" class="screen hidden">
@@ -80,6 +77,17 @@
                     </div>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- 오늘의 타로 모달 -->
+    <div id="today-modal" class="hidden">
+        <div class="today-modal-box">
+            <div class="today-modal-header">
+                <h3 id="today-modal-title"></h3>
+                <button class="today-modal-close" onclick="toggleTodayPanel()">✕</button>
+            </div>
+            <div id="today-grid"></div>
         </div>
     </div>
 
