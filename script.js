@@ -428,14 +428,13 @@ function drawNewCard() {
 }
 
 // ─── 4단계: UI 업데이트 ───────────────────────────────────────────────────────
-function updateUI(result) {
+function updateUI(result, animateFlip = false) {
     const s = strings[currentLang];
     const cardElement = document.getElementById('tarot-card');
-    const imagePlaceholder = document.getElementById('card-image-placeholder');
     const badge  = document.getElementById('direction-badge');
     const dirText = document.getElementById('card-direction');
 
-    imagePlaceholder.innerHTML = `<img src="${result.img}" alt="Tarot Card">`;
+    document.getElementById('capture-area').style.backgroundImage = `url('${result.img}')`;
     document.getElementById('card-name').innerText    = result.name;
     document.getElementById('card-meaning').innerText = result.meaning;
     document.getElementById('result-title').innerText = `${currentCategoryTitle}${s.adviceSuffix}`;
@@ -450,15 +449,30 @@ function updateUI(result) {
         badge.className = 'reg-bg';
     }
 
-    cardElement.classList.add('is-flipped');
-    isFlipped = true;
+    const doFlip = () => {
+        if (soundEnabled) TarotAudio.playFlip();
+        cardElement.classList.add('is-flipped');
+        isFlipped = true;
+        setTimeout(() => {
+            spawnParticles();
+            if (soundEnabled) TarotAudio.playResult();
+            triggerHaptic('medium');
+            showOverlay();
+        }, 1000);
+    };
 
-    setTimeout(() => {
-        spawnParticles();
-        if (soundEnabled) TarotAudio.playResult();
-        triggerHaptic('medium');
-        showOverlay();
-    }, 1000);
+    if (animateFlip) {
+        setTimeout(doFlip, 500);
+    } else {
+        cardElement.classList.add('is-flipped');
+        isFlipped = true;
+        setTimeout(() => {
+            spawnParticles();
+            if (soundEnabled) TarotAudio.playResult();
+            triggerHaptic('medium');
+            showOverlay();
+        }, 1000);
+    }
 }
 
 
@@ -493,6 +507,8 @@ function startAgain() {
 
     fanCardEls = [];
     fanIsShuffling = false;
+
+    document.getElementById('capture-area').style.backgroundImage = '';
 
     const cardElement = document.getElementById('tarot-card');
     cardElement.classList.remove('is-flipped');
@@ -564,20 +580,20 @@ function updateTodayPanel() {
                 currentCategoryKey = savedKey;
             }
             entry.innerHTML = `
-                <div class="today-entry-header">
+                <img class="today-entry-thumb${revClass}" src="${data.cardImg}" alt="${data.cardName}"
+                     onclick="viewTodayCard(${i}); toggleTodayPanel();">
+                <div class="today-entry-body">
                     <div class="today-entry-cat">${cat.label}</div>
-                    <img class="today-entry-thumb${revClass}" src="${data.cardImg}" alt="${data.cardName}"
-                         onclick="viewTodayCard(${i}); toggleTodayPanel();">
-                </div>
-                <p class="today-entry-meaning">${meaning}</p>
-                <button class="today-view-btn" onclick="viewTodayCard(${i}); toggleTodayPanel();">${s.todayViewBtn}</button>`;
+                    <p class="today-entry-meaning">${meaning}</p>
+                    <button class="today-view-btn" onclick="viewTodayCard(${i}); toggleTodayPanel();">${s.todayViewBtn}</button>
+                </div>`;
         } else {
             entry.innerHTML = `
-                <div class="today-entry-header">
+                <div class="today-entry-empty">✦</div>
+                <div class="today-entry-body">
                     <div class="today-entry-cat">${cat.label}</div>
-                    <div class="today-entry-empty">✦</div>
-                </div>
-                <button class="today-go-btn" onclick="toggleTodayPanel(); selectCategory(${i});">${s.todayGoBtn}</button>`;
+                    <button class="today-go-btn" onclick="toggleTodayPanel(); selectCategory(${i});">${s.todayGoBtn}</button>
+                </div>`;
         }
         grid.appendChild(entry);
     });
@@ -599,13 +615,18 @@ function viewTodayCard(catIndex) {
 
     if (soundEnabled) TarotAudio.playAmbient();
 
+    // reset card to face-down so the flip animation plays
+    const cardElement = document.getElementById('tarot-card');
+    cardElement.classList.remove('is-flipped');
+    isFlipped = false;
+
     document.getElementById('category-screen').classList.add('hidden');
     document.getElementById('main-app').classList.remove('hidden');
     document.getElementById('fan-phase').classList.add('hidden');
     document.getElementById('reveal-phase').classList.remove('hidden');
     document.getElementById('dynamic-title').innerText = currentCategoryTitle;
 
-    updateUI({ name: card.name, img: card.img, meaning: getMeaning(card, data.isReverse), isReverse: data.isReverse });
+    updateUI({ name: card.name, img: card.img, meaning: getMeaning(card, data.isReverse), isReverse: data.isReverse }, true);
 }
 
 // ─── 팬 카드 셔플 & 선택 ──────────────────────────────────────────────────────
