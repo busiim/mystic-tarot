@@ -32,7 +32,7 @@ const strings = {
             { key: '종합', label: '🔮 종합운', desc: '당신의 오늘 하루가 평온하길 기원합니다.', title: '오늘의 종합운' },
             { key: '연애', label: '❤️ 연애운', desc: '사랑의 설렘과 인연의 기운을 살핍니다.', title: '오늘의 연애운' },
             { key: '금전', label: '💰 금전운', desc: '풍요와 번영의 흐름을 확인합니다.', title: '오늘의 금전운' },
-            { key: '학업', label: '🎓 학업/사업운', desc: '성취와 목표 달성의 에너지를 집중합니다.', title: '오늘의 학업/사업운' },
+            { key: '학업', label: '🎓 학업\n/ 직업운', desc: '성취와 목표 달성의 에너지를 집중합니다.', title: '오늘의 학업/직업운' },
         ],
         meditationText: '마음을 정돈하세요.',
         cardSubtitle: '신중하게 카드를 터치하여 운명을 확인하세요.',
@@ -125,6 +125,8 @@ function applyStrings() {
         currentCategoryKey   = cat.key;
         currentCategoryTitle = cat.title;
         document.getElementById('dynamic-title').innerText = cat.title;
+        const descEl = document.getElementById('selected-cat-desc');
+        if (descEl) descEl.innerText = cat.desc;
 
         // 카드가 뽑혀 있으면 오버레이 상태와 무관하게 항상 재번역
         if (currentCard) {
@@ -215,21 +217,15 @@ const TarotAudio = {
 
     stopAmbient() {
         if (!this.ambientGain) return;
-        const g = this.ambientGain;
-        g.gain.cancelScheduledValues(this.ctx.currentTime);
-        g.gain.setValueAtTime(g.gain.value, this.ctx.currentTime);
-        g.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 2.5);
-        setTimeout(() => {
-            if (this.ambientOscs)  this.ambientOscs.forEach(o => { try { o.stop(); } catch(e) {} });
-            if (this.ambientLfo)   { try { this.ambientLfo.stop();  } catch(e) {} }
-            if (this.ambientLfo2)  { try { this.ambientLfo2.stop(); } catch(e) {} }
-            if (this.ambientLfo3)  { try { this.ambientLfo3.stop(); } catch(e) {} }
-            this.ambientOscs = null;
-            this.ambientLfo  = null;
-            this.ambientLfo2 = null;
-            this.ambientLfo3 = null;
-            this.ambientGain = null;
-        }, 3000);
+        if (this.ambientOscs)  this.ambientOscs.forEach(o => { try { o.stop(); } catch(e) {} });
+        if (this.ambientLfo)   { try { this.ambientLfo.stop();  } catch(e) {} }
+        if (this.ambientLfo2)  { try { this.ambientLfo2.stop(); } catch(e) {} }
+        if (this.ambientLfo3)  { try { this.ambientLfo3.stop(); } catch(e) {} }
+        this.ambientOscs = null;
+        this.ambientLfo  = null;
+        this.ambientLfo2 = null;
+        this.ambientLfo3 = null;
+        this.ambientGain = null;
     },
 
     // ── 카테고리 선택: 신비로운 상승 차임 ─────────────────────────────────────

@@ -49,6 +49,7 @@ body {
     background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3);
     color: var(--text-color); padding: 25px 10px; border-radius: 15px;
     font-family: var(--title-font); font-size: 1rem; cursor: pointer; transition: 0.3s;
+    white-space: pre-line;
 }
 .cat-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold-color); }
 
@@ -263,7 +264,8 @@ header h1 {
 .today-modal-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    position: relative;
     margin-bottom: 14px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
@@ -275,6 +277,8 @@ header h1 {
     letter-spacing: 1px;
 }
 .today-modal-close {
+    position: absolute;
+    right: 0;
     background: transparent;
     border: none;
     color: rgba(255, 255, 255, 0.35);
