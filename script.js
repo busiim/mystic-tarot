@@ -41,7 +41,7 @@ const strings = {
         retryBtn: '카드 감상하기',
         resetBtn: '다시 시작하기',
         fanPrompt: '카드를 선택하세요',
-        shuffleBtn: '🔀 셔플',
+        shuffleBtn: '셔플',
         todayToggleBtn: '📅 오늘의 타로 보기',
         todayPanelTitle: '오늘의 타로',
         todayViewBtn: '다시 보기',
@@ -63,7 +63,7 @@ const strings = {
         retryBtn: 'View Card',
         resetBtn: 'Start Again',
         fanPrompt: 'Choose your card',
-        shuffleBtn: '🔀 Shuffle',
+        shuffleBtn: 'Shuffle',
         todayToggleBtn: "📅 View Today's Tarot",
         todayPanelTitle: "Today's Tarot",
         todayViewBtn: 'View Again',
@@ -428,51 +428,29 @@ function drawNewCard() {
 }
 
 // ─── 4단계: UI 업데이트 ───────────────────────────────────────────────────────
-function updateUI(result, animateFlip = false) {
+function updateUI(result) {
     const s = strings[currentLang];
     const cardElement = document.getElementById('tarot-card');
-    const badge  = document.getElementById('direction-badge');
-    const dirText = document.getElementById('card-direction');
 
     document.getElementById('capture-area').style.backgroundImage = `url('${result.img}')`;
-    document.getElementById('card-name').innerText    = result.name;
     document.getElementById('card-meaning').innerText = result.meaning;
     document.getElementById('result-title').innerText = `${currentCategoryTitle}${s.adviceSuffix}`;
 
     if (result.isReverse) {
         cardElement.classList.add('reverse');
-        dirText.innerText = "REVERSED";
-        badge.className = 'rev-bg';
     } else {
         cardElement.classList.remove('reverse');
-        dirText.innerText = "UPRIGHT";
-        badge.className = 'reg-bg';
     }
 
-    const doFlip = () => {
-        if (soundEnabled) TarotAudio.playFlip();
-        cardElement.classList.add('is-flipped');
-        isFlipped = true;
-        setTimeout(() => {
-            spawnParticles();
-            if (soundEnabled) TarotAudio.playResult();
-            triggerHaptic('medium');
-            showOverlay();
-        }, 1000);
-    };
+    isFlipped = true;
+    if (soundEnabled) TarotAudio.playFlip();
 
-    if (animateFlip) {
-        setTimeout(doFlip, 500);
-    } else {
-        cardElement.classList.add('is-flipped');
-        isFlipped = true;
-        setTimeout(() => {
-            spawnParticles();
-            if (soundEnabled) TarotAudio.playResult();
-            triggerHaptic('medium');
-            showOverlay();
-        }, 1000);
-    }
+    setTimeout(() => {
+        spawnParticles();
+        if (soundEnabled) TarotAudio.playResult();
+        triggerHaptic('medium');
+        showOverlay();
+    }, 400);
 }
 
 
@@ -511,7 +489,7 @@ function startAgain() {
     document.getElementById('capture-area').style.backgroundImage = '';
 
     const cardElement = document.getElementById('tarot-card');
-    cardElement.classList.remove('is-flipped');
+    // (is-flipped 제거됨)
     cardElement.classList.remove('reverse');
 
     setTimeout(() => {
@@ -615,9 +593,6 @@ function viewTodayCard(catIndex) {
 
     if (soundEnabled) TarotAudio.playAmbient();
 
-    // reset card to face-down so the flip animation plays
-    const cardElement = document.getElementById('tarot-card');
-    cardElement.classList.remove('is-flipped');
     isFlipped = false;
 
     document.getElementById('category-screen').classList.add('hidden');
@@ -626,7 +601,7 @@ function viewTodayCard(catIndex) {
     document.getElementById('reveal-phase').classList.remove('hidden');
     document.getElementById('dynamic-title').innerText = currentCategoryTitle;
 
-    updateUI({ name: card.name, img: card.img, meaning: getMeaning(card, data.isReverse), isReverse: data.isReverse }, true);
+    updateUI({ name: card.name, img: card.img, meaning: getMeaning(card, data.isReverse), isReverse: data.isReverse });
 }
 
 // ─── 팬 카드 셔플 & 선택 ──────────────────────────────────────────────────────
